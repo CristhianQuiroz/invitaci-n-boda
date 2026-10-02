@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  INVITACIÓN DE BODA DIGITAL · Cristhian & Mayrane
+  ----------------------------------------------------------------------------
+  Fecha del evento: 28 de noviembre de 2026
+  Lugar: Tierra y Libertad, Cuautitlán, Estado de México
+  ----------------------------------------------------------------------------
+  ESTRUCTURA DEL ARCHIVO
+    1. <head>   · metadatos, tipografías de Google y hoja de estilos
+    2. <body>   · sobre de apertura (pantalla completa)
+    3.  MAIN    · la invitación: portada + seis secciones + pie
+    4.  MODALES · barra flotante, formulario de asistencia, agradecimiento
+    5.  SCRIPT  · lógica del sobre, cuenta atrás, fotos y formulario
+
+  CÓMO EDITARLO
+    · Nombres, fecha y lugar ...... bloque CFG (al final del <script>)
+    · Textos de cada sección ...... directamente en el HTML
+    · Fotografías ................. carpeta "fotos", mismos nombres
+    · Colores .................... variables CSS al inicio del <style>
+
+  El ornamento (corona, anillos, ramas, patrón floral) está dibujado en SVG:
+  no depende de imágenes externas y pesa unos pocos kilobytes.
+  ============================================================================
+-->
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#ffffff" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="description" content="Cristhian & Mayrane · 28 de noviembre de 2026 · Confirma tu asistencia" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Cristhian &amp; Mayrane" />
+<meta property="og:description" content="Nos casamos · 28.11.2026 · Cuautitlán, Méx." />
+<title>Cristhian &amp; Mayrane · Nuestra Boda</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>/* =====================================================================
+   INVITACIÓN · azul y blanco
+   Sistema: blanco dominante · azul noche / rey / cielo como acento
+   ===================================================================== */
+
+/* ---------- VARIABLES · paleta y tipografías. Cambia aquí los colores de toda la página. ---------- */
+:root{
+  --white:#ffffff;
+  --paper:#fbfcff;
+  --mist:#f4f6fd;
+  --ink:#101a4a;          /* azul noche, para texto */
+  --ink-2:#3d4880;
+  --ink-3:#7c85ad;
+  --ink-4:#aeb5cf;
+  --rey:#2440c8;          /* azul rey */
+  --rey-600:#2f4de0;
+  --rey-300:#8fa1ea;
+  --rey-100:#dde4fa;
+  --rey-050:#f0f4fe;
+  --line:rgba(16,26,74,.10);
+  --line-2:rgba(16,26,74,.18);
+  --ease:cubic-bezier(.2,.7,.3,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --display:'Fraunces',Georgia,serif;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',system-ui,-apple-system,sans-serif;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  background:#e7ebf7;color:var(--ink);
+
+  font-family:var(--sans);font-weight:300;line-height:1.74;letter-spacing:.008em;
+  min-height:100dvh;display:flex;justify-content:center;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:0;background:none}
+:focus-visible{outline:2px solid var(--rey);outline-offset:3px;border-radius:4px}
+
+/* ---------- LIENZO · columna central de la invitación en escritorio. ---------- */
+.sheet{
+  position:relative;width:100%;max-width:560px;margin:0 auto;
+  background:var(--white);overflow:hidden;isolation:isolate;
+}
+/* la invitación arranca oculta: primero se ve el sobre */
+.sheet{opacity:0;visibility:hidden;transition:opacity .9s cubic-bezier(.16,1,.3,1),visibility .9s}
+.sheet.visible{opacity:1;visibility:visible}
+body.con-sobre{overflow:hidden;height:100vh}
+.sheet::after{
+  content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjQ0MGM4IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAgMzApIHJvdGF0ZSgxMikgc2NhbGUoMSkiIG9wYWNpdHk9Ii4zNCI+CiAgPHBhdGggZD0iTTAgMGMtNC02LTMtMTMgMy0xNyA2IDQgNyAxMSAzIDE3eiIvPgogIDxwYXRoIGQ9Ik0wIDBjLTYtMi05LTgtNy0xNCA3LTEgMTIgMyAxMyAxMHoiLz4KICA8cGF0aCBkPSJNMCAwYzYtMiAxMC03IDktMTQtNy0yLTEzIDItMTQgOXoiLz4KICA8cGF0aCBkPSJNMCAwYy02IDMtOSA5LTcgMTUgNyAxIDEyLTMgMTMtMTB6Ii8+CiAgPHBhdGggZD0iTTAgMGM2IDMgMTAgOCA5IDE1LTcgMS0xMy0zLTE0LTEweiIvPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjYiLz4KICA8cGF0aCBkPSJNMCAtM3Y2TS0zIDBoNiIgc3Ryb2tlLXdpZHRoPSIuNyIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgOTYpIHJvdGF0ZSgtMjUpIHNjYWxlKDAuODIpIiBvcGFjaXR5PSIuMjYiPgogIDxwYXRoIGQ9Ik0wIDBjLTQtNi0zLTEzIDMtMTcgNiA0IDcgMTEgMyAxN3oiLz4KICA8cGF0aCBkPSJNMCAwYy02LTItOS04LTctMTQgNy0xIDEyIDMgMTMgMTB6Ii8+CiAgPHBhdGggZD0iTTAgMGM2LTIgMTAtNyA5LTE0LTctMi0xMyAyLTE0IDl6Ii8+CiAgPHBhdGggZD0iTTAgMGMtNiAzLTkgOS03IDE1IDcgMSAxMi0zIDEzLTEweiIvPgogIDxwYXRoIGQ9Ik0wIDBjNiAzIDEwIDggOSAxNS03IDEtMTMtMy0xNC0xMHoiLz4KICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMi42Ii8+CiAgPHBhdGggZD0iTTAgLTN2Nk0tMyAwaDYiIHN0cm9rZS13aWR0aD0iLjciLz4KPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzYgMTM4KSByb3RhdGUoNDApIHNjYWxlKDAuNjgpIiBvcGFjaXR5PSIuMjIiPgogIDxwYXRoIGQ9Ik0wIDBjLTQtNi0zLTEzIDMtMTcgNiA0IDcgMTEgMyAxN3oiLz4KICA8cGF0aCBkPSJNMCAwYy02LTItOS04LTctMTQgNy0xIDEyIDMgMTMgMTB6Ii8+CiAgPHBhdGggZD0iTTAgMGM2LTIgMTAtNyA5LTE0LTctMi0xMyAyLTE0IDl6Ii8+CiAgPHBhdGggZD0iTTAgMGMtNiAzLTkgOS03IDE1IDcgMSAxMi0zIDEzLTEweiIvPgogIDxwYXRoIGQ9Ik0wIDBjNiAzIDEwIDggOSAxNS03IDEtMTMtMy0xNC0xMHoiLz4KICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMi42Ii8+CiAgPHBhdGggZD0iTTAgLTN2Nk0tMyAwaDYiIHN0cm9rZS13aWR0aD0iLjciLz4KPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjQgMjIpIHJvdGF0ZSgxNSkgc2NhbGUoMC45NSkiIG9wYWNpdHk9Ii4zIj4KICA8cGF0aCBkPSJNMCAwYzgtMyAxNi0xIDIxIDYtNiA2LTE0IDctMjEgMXoiLz4KICA8cGF0aCBkPSJNMCAwYzcgMSAxMyA0IDE4IDkiIHN0cm9rZS13aWR0aD0iLjciLz4KICA8cGF0aCBkPSJNNSAxYzIgMiAzIDMgNSA1TTEwIDJjMiAyIDMgMyA1IDUiIHN0cm9rZS13aWR0aD0iLjYiLz4KPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTggOTIpIHJvdGF0ZSgtNDApIHNjYWxlKDAuODUpIiBvcGFjaXR5PSIuMjYiPgogIDxwYXRoIGQ9Ik0wIDBjOC0zIDE2LTEgMjEgNi02IDYtMTQgNy0yMSAxeiIvPgogIDxwYXRoIGQ9Ik0wIDBjNyAxIDEzIDQgMTggOSIgc3Ryb2tlLXdpZHRoPSIuNyIvPgogIDxwYXRoIGQ9Ik01IDFjMiAyIDMgMyA1IDVNMTAgMmMyIDIgMyAzIDUgNSIgc3Ryb2tlLXdpZHRoPSIuNiIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjIgMzApIHJvdGF0ZSgxMzApIHNjYWxlKDAuNzUpIiBvcGFjaXR5PSIuMjQiPgogIDxwYXRoIGQ9Ik0wIDBjOC0zIDE2LTEgMjEgNi02IDYtMTQgNy0yMSAxeiIvPgogIDxwYXRoIGQ9Ik0wIDBjNyAxIDEzIDQgMTggOSIgc3Ryb2tlLXdpZHRoPSIuNyIvPgogIDxwYXRoIGQ9Ik01IDFjMiAyIDMgMyA1IDVNMTAgMmMyIDIgMyAzIDUgNSIgc3Ryb2tlLXdpZHRoPSIuNiIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5NiAxMTgpIHJvdGF0ZSgtMTUpIHNjYWxlKDAuOCkiIG9wYWNpdHk9Ii4yOCI+CiAgPHBhdGggZD0iTTAgMGM4LTMgMTYtMSAyMSA2LTYgNi0xNCA3LTIxIDF6Ii8+CiAgPHBhdGggZD0iTTAgMGM3IDEgMTMgNCAxOCA5IiBzdHJva2Utd2lkdGg9Ii43Ii8+CiAgPHBhdGggZD0iTTUgMWMyIDIgMyAzIDUgNU0xMCAyYzIgMiAzIDMgNSA1IiBzdHJva2Utd2lkdGg9Ii42Ii8+CjwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0NiAxOCkgcm90YXRlKDgpIHNjYWxlKDAuOSkiIG9wYWNpdHk9Ii4yOCI+CiAgPHBhdGggZD0iTTAgMjZDMiAxNiA1IDggMTAgMiIvPgogIDxwYXRoIGQ9Ik00IDIwYy00LTEtNy00LTgtOCA0IDAgNyAyIDkgNnoiLz4KICA8cGF0aCBkPSJNNyAxMmMtMy0zLTQtNy0yLTExIDMgMiA0IDYgMyAxMHoiLz4KICA8Y2lyY2xlIGN4PSIxMSIgY3k9IjEiIHI9IjIuMiIvPgogIDxjaXJjbGUgY3g9IjMiIGN5PSI3IiByPSIxLjYiLz4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjciIHI9IjEuNCIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4IDE0MCkgcm90YXRlKC0yMCkgc2NhbGUoMC44KSIgb3BhY2l0eT0iLjI0Ij4KICA8cGF0aCBkPSJNMCAyNkMyIDE2IDUgOCAxMCAyIi8+CiAgPHBhdGggZD0iTTQgMjBjLTQtMS03LTQtOC04IDQgMCA3IDIgOSA2eiIvPgogIDxwYXRoIGQ9Ik03IDEyYy0zLTMtNC03LTItMTEgMyAyIDQgNiAzIDEweiIvPgogIDxjaXJjbGUgY3g9IjExIiBjeT0iMSIgcj0iMi4yIi8+CiAgPGNpcmNsZSBjeD0iMyIgY3k9IjciIHI9IjEuNiIvPgogIDxjaXJjbGUgY3g9IjE2IiBjeT0iNyIgcj0iMS40Ii8+CjwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyIDk2KSByb3RhdGUoMzUpIHNjYWxlKDAuNykiIG9wYWNpdHk9Ii4yMiI+CiAgPHBhdGggZD0iTTAgMjZDMiAxNiA1IDggMTAgMiIvPgogIDxwYXRoIGQ9Ik00IDIwYy00LTEtNy00LTgtOCA0IDAgNyAyIDkgNnoiLz4KICA8cGF0aCBkPSJNNyAxMmMtMy0zLTQtNy0yLTExIDMgMiA0IDYgMyAxMHoiLz4KICA8Y2lyY2xlIGN4PSIxMSIgY3k9IjEiIHI9IjIuMiIvPgogIDxjaXJjbGUgY3g9IjMiIGN5PSI3IiByPSIxLjYiLz4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjciIHI9IjEuNCIvPgo8L2c+CiAgICA8cGF0aCBkPSJNMzAgMzBDNDggNDQgNjIgNTggNzYgNzgiIHN0cm9rZS13aWR0aD0iLjgiIG9wYWNpdHk9Ii4yIi8+CiAgICA8cGF0aCBkPSJNMTIwIDk2QzEwNCAxMDYgODggMTE4IDc2IDEzOCIgc3Ryb2tlLXdpZHRoPSIuOCIgb3BhY2l0eT0iLjE4Ii8+CiAgICA8cGF0aCBkPSJNMTggOTJDMzYgOTYgNTIgOTggNjQgOTYiIHN0cm9rZS13aWR0aD0iLjciIG9wYWNpdHk9Ii4xNiIvPgogIDwvZz4KPC9zdmc+");
+  background-size:160px 160px;
+  opacity:.5;mix-blend-mode:multiply;
+  box-shadow:0 30px 90px rgba(16,26,74,.16);
+}
+@media (min-width:580px){
+  body{padding:34px 0;align-items:flex-start}
+  .sheet{border-radius:4px}
+}
+
+p{margin:0 0 14px}
+
+/* =====================================================================
+   FIGURAS · solo línea, nunca relleno
+   ===================================================================== */
+.figure{display:block;overflow:visible;margin:0 auto}
+.figure path,.figure circle,.figure line,
+.figure rect,.figure polyline,.figure ellipse{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
+.figure .rey,.figure .royal{stroke:var(--rey)}
+.figure .soft{stroke:var(--rey-300)}
+.figure .solid{fill:var(--rey);stroke:none}
+.figure .trace{stroke-dasharray:var(--len,400);stroke-dashoffset:var(--len,400);
+  transition:stroke-dashoffset 2.8s var(--ease-out)}
+.on-dark .figure path,.on-dark .figure circle,.on-dark .figure line,
+.on-dark .figure rect,.on-dark .figure polyline{stroke:rgba(255,255,255,.85)}
+.on-dark .figure .rey,.on-dark .figure .royal{stroke:#fff}
+.on-dark .figure .soft{stroke:rgba(255,255,255,.4)}
+.on-dark .figure .solid{fill:#fff}
+.in .figure .trace,.figure.in .trace,.opening .figure .trace{stroke-dashoffset:0}
+
+/* =====================================================================
+   PORTADA · Reserva la fecha
+   ===================================================================== */
+/* ---------- PORTADA · Reserva la fecha, monograma y anillos. ---------- */
+.opening{
+  position:relative;min-height:100svh;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  padding:0;background:transparent;
+}
+.opening-card{min-height:100svh;display:flex;flex-direction:column;justify-content:center}
+.opening-card{
+  position:relative;z-index:2;width:100%;max-width:none;
+  margin:0;background:transparent;border:0;
+  padding:56px 38px 50px;text-align:center;overflow:hidden;
+}
+.opening-card::before{
+  content:"";position:absolute;inset:12px;
+  border:1px solid rgba(36,64,200,.13);pointer-events:none;z-index:4;
+}
+.opening-inner{position:relative;z-index:5;width:100%;margin:0 auto}
+.opening-inner > *{opacity:0;animation:cRise 1.1s var(--ease-out) forwards}
+.opening-inner > *:nth-child(1){animation-delay:.1s}
+.opening-inner > *:nth-child(2){animation-delay:.24s}
+.opening-inner > *:nth-child(3){animation-delay:.38s}
+.opening-inner > *:nth-child(4){animation-delay:.52s}
+.opening-inner > *:nth-child(5){animation-delay:.66s}
+.opening-inner > *:nth-child(6){animation-delay:.8s}
+@keyframes cRise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+.std{
+  font-family:var(--display);font-style:italic;font-weight:300;
+  font-size:clamp(30px,5vw,38px);line-height:1.15;letter-spacing:-.02em;
+  color:var(--ink);margin:0;text-align:center;
+}
+.std-line{width:70px;height:1px;background:var(--rey-300);margin:14px auto 0}
+.std-label{
+  font-family:var(--sans);font-size:clamp(9px,1.6vw,11px);font-weight:400;
+  letter-spacing:.5em;text-transform:uppercase;color:var(--rey);
+  margin:16px 0 0;padding-left:.5em;text-align:center;
+}
+
+.initials{display:block;margin:22px 0 24px}
+.corona-wrap{
+  position:relative;width:164px;height:182px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto;
+}
+.corona{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.corona path,.corona circle{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
+.corona .tallo{stroke-width:1.6;opacity:1}
+.corona .hojas path{stroke-width:1.15;opacity:1}
+.corona .flor path{stroke-width:1.25;opacity:1}
+.corona .centro circle{fill:var(--rey);stroke:none}
+.corona .punto{fill:var(--rey);stroke:none}
+.corona .lazo{stroke-width:1.4;opacity:1}
+
+.mono-cm{
+  position:relative;font-family:var(--display);font-weight:400;
+  font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--ink);
+  display:inline-flex;align-items:center;text-align:center;
+}
+.mono-cm i{font-style:italic;font-weight:300;font-size:.72em;color:var(--rey);padding:0 3px}
+
+.couple{
+  font-family:var(--serif);font-style:italic;font-weight:400;
+  font-size:clamp(24px,5.4vw,34px);line-height:1.25;
+  color:var(--ink);margin:0;text-align:center;
+}
+.date-band{
+  border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);
+  margin:22px auto 0;max-width:280px;padding:12px 0;text-align:center;
+}
+.date-band span{
+  font-family:var(--serif);font-size:clamp(16px,3vw,20px);letter-spacing:.18em;
+  color:var(--ink);font-variant-numeric:tabular-nums;
+}
+.std-note{
+  font-family:var(--sans);font-size:clamp(8px,1.4vw,10px);letter-spacing:.36em;
+  text-transform:uppercase;color:var(--ink-4);
+  margin:16px 0 0;text-align:center;
+}
+/* =====================================================================
+   SECCIONES
+   ===================================================================== */
+/* ---------- SECCIONES · cuerpo de la invitación. ---------- */
+section{position:relative;padding:76px 32px;text-align:center}
+section.plain{background:var(--white)}
+section.mist{background:var(--mist)}
+section.deep{background:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%);color:#fff}
+.section-body{position:relative;z-index:3;max-width:none;margin:0 auto}
+
+.sec-head{position:relative;margin-bottom:30px}
+
+.sec-label{
+  display:block;font-size:8px;letter-spacing:.46em;text-transform:uppercase;
+  color:var(--rey);margin:0 0 10px;
+}
+.block-title{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(31px,9.6vw,41px);letter-spacing:-.032em;line-height:1.04;
+  color:var(--ink);margin:0;
+}
+.lead{font-family:var(--serif);font-size:18.5px;line-height:1.78;color:var(--ink-2)}
+
+.sym{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;max-width:170px;margin:18px auto 0;
+}
+.sym::before,.sym::after{
+  content:"";height:1px;flex:1;
+  background:linear-gradient(90deg,transparent,var(--rey-300));
+}
+.sym::after{background:linear-gradient(90deg,var(--rey-300),transparent)}
+.sym i{width:6px;height:6px;background:var(--rey);transform:rotate(45deg);flex:none;display:block}
+
+/* =====================================================================
+   SECCIÓN AZUL · cuenta atrás y confirmación
+   ===================================================================== */
+section.deep .sec-label{color:var(--rey-100)}
+section.deep 
+section.deep .block-title{color:#fff}
+section.deep .lead{color:rgba(255,255,255,.88)}
+section.deep .sym::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.55))}
+section.deep .sym::after{background:linear-gradient(90deg,rgba(255,255,255,.55),transparent)}
+section.deep .sym i{background:#fff}
+
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:28px 0 0}
+.countdown div{
+  padding:20px 4px 16px;border:1px solid rgba(255,255,255,.34);
+}
+.countdown b{
+  display:block;font-family:var(--display);font-weight:300;
+  font-size:clamp(27px,8.6vw,36px);color:#fff;line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:-.03em;
+}
+.countdown span{
+  display:block;margin-top:9px;font-size:7px;letter-spacing:.3em;
+  text-transform:uppercase;color:rgba(255,255,255,.7);
+}
+
+/* =====================================================================
+   ITINERARIO · fichas numeradas, sin línea de tiempo
+   ===================================================================== */
+.agenda{margin-top:26px;text-align:left}
+.agenda .item{
+  display:grid;grid-template-columns:56px 1fr;gap:0;
+  padding:24px 0;border-top:1px solid var(--line);
+  align-items:start;
+}
+.agenda .item:last-child{border-bottom:1px solid var(--line)}
+.agenda .hour{
+  font-family:var(--display);font-weight:300;font-size:15px;
+  letter-spacing:-.01em;color:var(--rey);font-variant-numeric:tabular-nums;
+  padding-top:2px;
+}
+.agenda h3{
+  font-family:var(--display);font-size:20px;font-weight:400;
+  letter-spacing:-.012em;margin:0 0 6px;color:var(--ink);
+}
+.agenda p{font-size:13.5px;color:var(--ink-2);margin:0}
+.agenda .where{
+  display:block;margin-top:8px;font-size:8.5px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--ink-4);
+}
+
+.note{
+  margin-top:30px;padding:24px 22px;border:1px solid var(--rey-100);
+  background:var(--rey-050);
+  font-family:var(--serif);font-size:15.5px;line-height:1.72;color:var(--ink-2);
+}
+.note b{font-weight:600;color:var(--rey)}
+
+/* =====================================================================
+   UBICACIÓN · mapa de línea, sin relleno
+   ===================================================================== */
+.place{border:1px solid var(--line);background:#fff;margin:24px 0 18px;position:relative;z-index:30}
+.place .sketch{position:relative;background:var(--rey-050);height:170px;overflow:hidden}
+.place .sketch svg{width:100%;height:100%;display:block}
+.place .sketch .road{fill:none;stroke:var(--rey-300);stroke-width:1}
+.place .sketch .road-soft{fill:none;stroke:var(--rey-100);stroke-width:1}
+.place .sketch .block{fill:none;stroke:var(--rey-100);stroke-width:.9}
+.place .sketch .parcel{fill:none;stroke:var(--rey-300);stroke-width:.7;stroke-dasharray:3 4}
+.place .sketch .pin{fill:var(--rey)}
+.place .sketch .pulse{fill:none;stroke:var(--rey);stroke-width:1.1}
+.place .info{padding:22px 20px;border-top:1px solid var(--line)}
+.place .info h3{
+  font-family:var(--display);font-size:21px;font-weight:400;
+  letter-spacing:-.015em;margin:0 0 8px;color:var(--ink);
+}
+.place .info p{font-size:13.5px;color:var(--ink-2);margin:0}
+.place .info .cp{
+  display:block;margin-top:12px;font-size:8.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-4);
+}
+
+/* =====================================================================
+   GALERÍA · solo las fotos, sin marcos
+   ===================================================================== */
+/* ---------- GALERÍA · tres fotografías de la pareja. ---------- */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:24px}
+.gallery figure{margin:0;position:relative;overflow:hidden;background:var(--mist);aspect-ratio:2/3}
+.gallery figure:nth-child(2){aspect-ratio:2/3.3}
+.gallery img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 1.4s var(--ease-out);
+  filter:contrast(1.05) saturate(1.12) brightness(1.05);
+}
+.gallery figure:nth-child(1) img{object-position:50% 24%}
+.gallery figure:nth-child(2) img{object-position:50% 30%}
+.gallery figure:nth-child(3) img{object-position:50% 38%}
+.gallery figure:hover img{transform:scale(1.05)}
+
+/* =====================================================================
+   BOTONES
+   ===================================================================== */
+/* ---------- BOTONES · estilos compartidos. ---------- */
+.btn{
+  position:relative;overflow:hidden;
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:19px 22px;font-family:var(--sans);
+  font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;font-weight:400;
+  text-decoration:none;cursor:pointer;border:0;
+  transition:background .35s var(--ease),color .35s var(--ease),
+             transform .25s var(--ease),border-color .35s var(--ease);
+}
+.btn svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.4}
+.btn:active{transform:translateY(1px)}
+.btn-solid{background:var(--rey);color:#fff}
+.btn-solid:hover{background:var(--ink)}
+.btn-line{border:1px solid var(--rey);color:var(--rey);background:transparent}
+.btn-line:hover{background:var(--rey);color:#fff}
+.btn-white{background:#fff;color:var(--rey);border:1px solid #fff}
+.btn-white:hover{background:var(--rey-050)}
+section.deep .btn-line{border-color:rgba(255,255,255,.6);color:#fff}
+section.deep .btn-line:hover{background:#fff;color:var(--rey)}
+
+/* =====================================================================
+   ANIMACIONES
+   ===================================================================== */
+.reveal{opacity:0;transition:opacity 1.05s var(--ease-out),transform 1.05s var(--ease-out)}
+.reveal[data-anim="up"]{transform:translateY(26px)}
+.reveal[data-anim="scale"]{transform:scale(.96)}
+.reveal[data-anim="spread"]{transform:scaleX(.6)}
+.reveal.in{opacity:1;transform:none}
+[data-delay="1"]{transition-delay:.08s}
+[data-delay="2"]{transition-delay:.16s}
+[data-delay="3"]{transition-delay:.24s}
+[data-delay="4"]{transition-delay:.32s}
+[data-delay="5"]{transition-delay:.4s}
+
+/* =====================================================================
+   PIE
+   ===================================================================== */
+/* ---------- PIE · firma y datos finales. ---------- */
+footer{
+  background:#000;color:rgba(255,255,255,.5);text-align:center;
+  padding:20px 28px calc(22px + env(safe-area-inset-bottom));
+  font-size:7px;letter-spacing:.24em;text-transform:uppercase;
+}
+footer .sign{
+  font-family:var(--display);font-style:italic;font-size:16px;
+  color:#fff;letter-spacing:0;text-transform:none;margin-top:8px;
+}
+footer .meta{margin-top:6px;display:flex;justify-content:center;gap:11px}
+footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left:16px}
+
+/* =====================================================================
+   BARRA FLOTANTE
+   ===================================================================== */
+/* ---------- BARRA FLOTANTE · acceso rápido a la confirmación. ---------- */
+.floating{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;max-width:470px;margin:0 auto;
+  padding:14px 22px calc(14px + env(safe-area-inset-bottom));
+  background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.98) 44%);
+  transform:translateY(130%);transition:transform .45s var(--ease-out);pointer-events:none;
+}
+.floating.show{transform:translateY(0);pointer-events:auto}
+@media (min-width:580px){.floating{display:none}}
+
+/* =====================================================================
+   FORMULARIO DE ASISTENCIA
+   Campos: nombre, si asistirá y cuántos acompañantes.
+   El registro se guarda en el dispositivo de cada invitado.
+   ===================================================================== */
+/* =====================================================================
+   MODAL DE CONFIRMACIÓN
+   ===================================================================== */
+/* ---------- MODAL DE CONFIRMACIÓN · formulario de asistencia. ---------- */
+.scrim{
+  position:fixed;inset:0;z-index:80;background:rgba(16,26,74,.58);
+  backdrop-filter:blur(5px);opacity:0;visibility:hidden;
+  transition:opacity .35s var(--ease),visibility .35s;
+  display:flex;align-items:flex-end;justify-content:center;
+}
+.scrim.open{opacity:1;visibility:visible}
+.panel{
+  width:100%;max-width:470px;max-height:93dvh;overflow-y:auto;
+  background:#fff;padding:12px 26px calc(32px + env(safe-area-inset-bottom));
+  transform:translateY(36px);transition:transform .45s var(--ease-out);
+  overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+}
+.scrim.open .panel{transform:translateY(0)}
+.grab{width:44px;height:3px;background:var(--line-2);margin:8px auto 22px}
+.panel h2{
+  font-family:var(--display);font-size:26px;font-weight:400;letter-spacing:-.025em;
+  margin:0 0 6px;color:var(--ink);text-align:center;
+}
+.panel .sub{
+  text-align:center;font-family:var(--serif);font-style:italic;
+  font-size:14px;color:var(--ink-2);margin:0 0 28px;
+}
+.field{margin:0 0 22px;text-align:left}
+.field label{
+  display:block;font-size:8.5px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--ink-4);margin:0 0 8px;
+}
+.field input,.field select{
+  width:100%;font-family:var(--serif);font-size:16.5px;color:var(--ink);
+  background:transparent;border:0;border-bottom:1px solid var(--line-2);
+  border-radius:0;padding:8px 0;outline:none;
+  -webkit-appearance:none;appearance:none;transition:border-color .3s var(--ease);
+}
+.field input:focus,.field select:focus{border-color:var(--rey)}
+.field select{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232440c8' stroke-width='1.4'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat:no-repeat;background-position:right 2px center;background-size:15px;
+  padding-right:26px;cursor:pointer;
+}
+.stepper{
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--line-2);padding:4px 0;
+}
+.stepper button{
+  width:34px;height:34px;flex:none;border:1px solid var(--line-2);background:#fff;
+  font-size:16px;line-height:1;color:var(--rey);
+  display:flex;align-items:center;justify-content:center;
+  transition:border-color .25s var(--ease),background .25s var(--ease);
+}
+.stepper button:hover{border-color:var(--rey);background:var(--rey-050)}
+.stepper span{
+  font-family:var(--display);font-size:19px;line-height:1;
+  font-variant-numeric:tabular-nums;color:var(--ink);
+}
+.err{font-size:11px;color:#c02b3a;margin:0 0 12px;min-height:14px;text-align:center}
+.actions{display:grid;gap:10px;margin-top:6px}
+.hint{
+  font-family:var(--serif);font-style:italic;font-size:12.5px;
+  color:var(--ink-4);text-align:center;margin:16px 0 0;
+}
+
+/* =====================================================================
+   AGRADECIMIENTO Y AVISO
+   ===================================================================== */
+/* ---------- PANTALLA DE AGRADECIMIENTO. ---------- */
+.thanks{
+  position:fixed;inset:0;z-index:90;background:linear-gradient(168deg,#1d34a8,#2440c8);
+  color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:36px;opacity:0;visibility:hidden;
+  transition:opacity .45s var(--ease),visibility .45s;
+}
+.thanks.open{opacity:1;visibility:visible}
+.thanks .figure{max-width:240px;margin-bottom:22px}
+.thanks .sign{font-family:var(--display);font-style:italic;font-size:40px}
+.thanks p{color:rgba(255,255,255,.82);font-family:var(--serif);font-size:15px;max-width:310px;margin:10px 0 0}
+.thanks .btn{width:auto;min-width:240px;margin-top:26px}
+
+.toast{
+  position:fixed;left:50%;bottom:104px;z-index:99;transform:translate(-50%,16px);
+  background:var(--ink);color:#fff;padding:13px 22px;
+  font-family:var(--serif);font-size:13.5px;opacity:0;
+  transition:opacity .32s var(--ease),transform .32s var(--ease);
+  pointer-events:none;max-width:86%;text-align:center;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- ACCESIBILIDAD · respeta la preferencia de movimiento reducido. ---------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+  .reveal,.opening-inner > *{opacity:1!important;transform:none!important}
+  .figure .trace{stroke-dashoffset:0!important}
+}
+
+/* =====================================================================
+   SISTEMA BOTÁNICO · línea fina
+   ===================================================================== */
+.corona{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.corona path,.corona circle{fill:none;stroke:var(--ink);stroke-linecap:round;stroke-linejoin:round}
+.corona .tallo{stroke-width:1.8;opacity:1}
+.corona .hojas path{stroke-width:1.25;opacity:1}
+.corona .flor path{stroke-width:1.35;opacity:1}
+.corona .centro circle{fill:var(--rey);stroke:none;opacity:.85}
+.corona .punto{fill:var(--rey);stroke:none}
+.corona .lazo{stroke-width:1.5;opacity:1}
+
+
+
+
+
+
+.rama-wrap{display:flex;justify-content:center;margin:20px auto 0}
+.rama-wrap.on-dark .rama path,.rama-wrap.on-dark .rama circle{stroke:rgba(255,255,255,.8)}
+.rama-wrap.on-dark .rama .baya{fill:#fff}
+
+.esquinas{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+
+.esq-der{left:auto;right:-10px;top:-6px;transform:scaleX(-1)}
+
+
+
+.corona-wrap{
+  position:relative;width:clamp(168px,28vw,206px);height:clamp(186px,31vw,228px);
+  display:flex;align-items:center;justify-content:center;margin:0 auto;
+}
+.mono-cm{
+  position:relative;font-family:var(--display);font-weight:400;
+  font-size:clamp(46px,8vw,62px);line-height:1;letter-spacing:-.02em;color:var(--ink);
+  display:inline-flex;align-items:center;gap:2px;
+}
+.mono-cm i{font-style:italic;font-weight:300;font-size:.72em;color:var(--rey);padding:0 3px}
+.initials{display:block;margin:24px 0 26px;min-height:0}
+
+.sec-label{letter-spacing:.52em;margin:0 0 12px}
+.agenda .hour{border-left:2px solid var(--rey-300);padding-left:12px;font-size:14px;line-height:1.12}
+
+.gallery{grid-template-columns:repeat(6,1fr)}
+.gallery figure:nth-child(1){grid-column:span 6;aspect-ratio:4/3}
+.gallery figure:nth-child(2){grid-column:span 3;aspect-ratio:3/4;margin-top:8px}
+.gallery figure:nth-child(3){grid-column:span 3;aspect-ratio:3/4;margin-top:8px}
+.gallery figure:nth-child(1) img{object-position:50% 32%}
+.gallery figure:nth-child(2) img{object-position:50% 20%}
+.gallery figure:nth-child(3) img{object-position:50% 26%}
+
+
+
+
+
+/* =====================================================================
+   PROGRAMA DEL DÍA
+   ===================================================================== */
+.programa{margin-top:30px;text-align:left}
+.paso{
+  display:grid;grid-template-columns:54px 1fr;gap:0;
+  padding:16px 0;border-top:1px solid var(--line);
+}
+.paso:last-child{border-bottom:1px solid var(--line)}
+.p-hora{
+  font-family:var(--display);font-size:13px;font-weight:400;
+  color:var(--rey);font-variant-numeric:tabular-nums;padding-top:1px;
+}
+.p-txt h4{
+  font-family:var(--serif);font-size:16px;font-weight:600;
+  letter-spacing:.02em;margin:0 0 3px;color:var(--ink);
+}
+.p-txt p{font-size:12.5px;color:var(--ink-3);margin:0}
+
+/* =====================================================================
+   SOBRE DE APERTURA
+   ===================================================================== */
+/* =====================================================================
+   SOBRE DE APERTURA
+   ===================================================================== */
+/* ---------- SOBRE DE APERTURA · pantalla completa, se retira al pulsar Abrir. ---------- */
+.sobre{
+  position:fixed;inset:0;z-index:200;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:26px 20px;text-align:center;
+  background:radial-gradient(120% 80% at 50% 0%,#16306e 0%,#0b1c4d 55%,#081436 100%);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),visibility .8s;
+}
+.sobre.abierto{opacity:0;visibility:hidden;pointer-events:none}
+.sobre-luz{
+  position:absolute;top:50%;left:50%;width:420px;height:420px;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,rgba(90,124,246,.28),transparent 68%);
+  animation:sobreLuz 12s ease-in-out infinite;pointer-events:none;
+}
+@keyframes sobreLuz{
+  0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.7}
+  50%{transform:translate(-50%,-50%) scale(1.12);opacity:1}
+}
+.sobre-carta{
+  position:relative;z-index:2;width:100%;max-width:520px;margin:0 auto;
+  background:#fff;padding:56px 38px 50px;text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.42);
+  animation:sobreEntra 1.3s cubic-bezier(.16,1,.3,1) both;
+  transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s cubic-bezier(.16,1,.3,1);
+}
+@keyframes sobreEntra{
+  from{opacity:0;transform:translateY(30px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+.sobre.abierto .sobre-carta{transform:translateY(-26px) scale(.94);opacity:0}
+.sobre-sello{
+  position:relative;z-index:6;width:74px;height:74px;margin:0 auto 26px;
+  border-radius:50%;background:#0b1c4d;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 26px rgba(11,28,77,.40);
+  animation:latido 1.5s ease-in-out infinite;transform-origin:center;
+}
+.sobre-sello svg{width:34px;height:34px;display:block}
+.sobre-sello path{fill:#fff;stroke:none}
+@keyframes latido{
+  0%{transform:scale(1)}
+  12%{transform:scale(1.20)}
+  24%{transform:scale(1)}
+  36%{transform:scale(1.13)}
+  48%{transform:scale(1)}
+  100%{transform:scale(1)}
+}
+.sobre-sello::after{
+  content:"";position:absolute;inset:-5px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.5);
+  animation:halo 1.5s ease-out infinite;pointer-events:none;
+}
+@keyframes halo{
+  0%{transform:scale(.92);opacity:.65}
+  70%{transform:scale(1.5);opacity:0}
+  100%{transform:scale(1.5);opacity:0}
+}
+.sobre-texto{position:relative;z-index:3}
+.sobre-nombre,.sobre-nombre2{
+  font-family:var(--display);font-weight:400;
+  font-size:clamp(30px,9vw,38px);line-height:1.16;
+  letter-spacing:-.02em;color:var(--ink);margin:0;
+}
+.sobre-y{font-family:var(--display);font-style:italic;font-size:19px;color:var(--rey);margin:5px 0;line-height:1}
+.sobre-filete{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:124px;margin:16px auto}
+.sobre-filete::before,.sobre-filete::after{content:"";height:1px;flex:1;background:rgba(16,26,74,.22)}
+.sobre-filete i{width:5px;height:5px;background:var(--rey);transform:rotate(45deg);display:block}
+.sobre-fecha{font-family:var(--serif);font-size:18px;letter-spacing:.1em;color:var(--ink-2);margin:0 0 8px}
+.sobre-invita{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-3);margin:0 0 26px}
+.btn-sobre{
+  width:auto !important;min-width:200px;
+  background:#0b1c4d;color:#fff;border-radius:999px;
+  padding:19px 44px !important;font-size:12px;letter-spacing:.32em;
+  box-shadow:0 12px 30px rgba(11,28,77,.4);
+}
+.btn-sobre:hover{background:var(--rey)}
+.sobre-pie{
+  position:relative;z-index:2;margin:28px 0 0;
+  font-family:var(--sans);font-size:10px;letter-spacing:.42em;
+  text-transform:uppercase;color:rgba(255,255,255,.55);
+  animation:sobrePulsa 2.6s ease-in-out infinite;
+}
+@keyframes sobrePulsa{0%,100%{opacity:.45}50%{opacity:.9}}
+
+
+/* ---------- anillos entrelazados ---------- */
+/* ---------- ANILLOS ENTRELAZADOS · portada y confirmación. ---------- */
+.anillos{display:block;margin:0 auto;overflow:visible}
+.anillos circle,.anillos path{fill:none;stroke:var(--rey);stroke-linecap:round;stroke-linejoin:round}
+.anillos .aro-b{stroke:var(--ink)}
+.anillos .brillo{stroke:var(--rey-300)}
+.anillos .destello{stroke:var(--rey-300);opacity:.5}
+.opening-inner .anillos{margin:4px auto 20px}
+section.deep .anillos{margin:2px auto 24px}
+section.deep .anillos circle,section.deep .anillos path{stroke:rgba(255,255,255,.9)}
+section.deep .anillos .aro-b{stroke:var(--rey-300)}
+section.deep .anillos .brillo,section.deep .anillos .destello{stroke:rgba(255,255,255,.6)}
+
+/* ---------- lluvia de flores ---------- */
+/* ---------- LLUVIA DE FLORES · animación del sobre. ---------- */
+.estrellas{position:absolute;inset:0;z-index:1;overflow:hidden;pointer-events:none}
+.estrellas i{position:absolute;top:-24px;display:block;animation:caer linear infinite;will-change:transform,opacity}
+@keyframes caer{
+  0%{transform:translate3d(0,-30px,0) rotate(0deg) scale(.6);opacity:0}
+  12%{opacity:1}
+  80%{opacity:.9}
+  100%{transform:translate3d(-46px,110vh,0) rotate(160deg) scale(1);opacity:0}
+}
+.estrellas i svg{display:block;color:#fff}
+.estrellas i svg g{fill:#fff}
+.estrellas i svg circle{fill:#0b1c4d}
+
+/* ---------- mapa y botones ---------- */
+.place .sketch .street{fill:none;stroke:var(--rey-100);stroke-width:1}
+.place .sketch .street-major{fill:none;stroke:var(--rey-300);stroke-width:1.3}
+.place .sketch .build{fill:#fff;stroke:var(--rey-100);stroke-width:.9}
+.place .sketch .build.royal{fill:var(--rey-100);stroke:var(--rey-300)}
+.btn-royal{background:var(--rey);color:#fff;border:1px solid var(--rey)}
+.btn-royal:hover{background:var(--rey-600)}
+
+/* ---------- corona de la portada ---------- */
+.corona-v3{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.5}
+.corona-v3 .tallo{fill:none;stroke:var(--rey-300);stroke-width:1.2;stroke-linecap:round}
+.corona-v3 .flor circle{fill:none;stroke:var(--rey-300);stroke-width:1.1}
+.corona-v3 .flor path{fill:none;stroke:var(--rey-300);stroke-width:.9;stroke-linecap:round}
+.corona-v3 .lazo{fill:none;stroke:var(--rey-300);stroke-width:1.1}
+
+@media (prefers-reduced-motion:reduce){
+  .sobre-luz,.sobre-carta,.sobre-pie,.sobre-sello,.sobre-sello::after{animation:none}
+  .estrellas{display:none}
+}
+
+/* =====================================================================
+   GALERÍA POR ENCIMA DEL FONDO FLORAL
+   El patrón de porcelana está en .sheet::after con z-index 20. Para que
+   las fotos queden delante se les da su propia capa (z-index 30) y un
+   marco blanco que las separa del dibujo de fondo.
+   ===================================================================== */
+section.galeria{position:relative;z-index:30;background:transparent}
+.gallery{position:relative;z-index:30}
+.gallery figure{
+  position:relative;z-index:30;
+  background:#fff;padding:6px;border-radius:4px;
+  box-shadow:0 14px 34px rgba(16,26,74,.16);
+}
+.gallery img{border-radius:2px}
+
+/* =====================================================================
+   CONTENIDO POR ENCIMA DEL FONDO FLORAL
+   El patrón está en z-index 20. Todo bloque con texto o fondo propio
+   sube a 30 para que no se transparente.
+   ===================================================================== */
+.section-body{position:relative;z-index:30}
+section{position:relative;z-index:30}
+.place,.place .info,.place .sketch{position:relative;z-index:30}
+.note,.programa,.agenda,.countdown,.calendario,.contacto{position:relative;z-index:30}
+.place .info{background:#fff}
+.section-body .note{background:var(--rey-050)}
+.gallery figure{background:#fff}
+footer{position:relative;z-index:30}
+.opening-card{position:relative;z-index:30}
+
+/* =====================================================================
+   ORDEN DE CAPAS
+   El patrón floral es el FONDO (z-index 1). Todo el contenido va encima
+   en su capa natural, así que nada se transparenta.
+   ===================================================================== */
+.sheet{position:relative}
+.sheet > *{position:relative;z-index:2}
+.sobre{z-index:200}
+.floating,.scrim,.thanks,.toast{position:fixed}
+
+/* =====================================================================
+   UBICACIÓN SOBRE FONDO AZUL
+   La sección lleva el degradado de .deep y aquí se adaptan sus piezas:
+   mapa, ficha y enlace se aclaran para leerse sobre el azul.
+   ===================================================================== */
+section.ubicacion .section-body{position:relative;z-index:30}
+section.ubicacion .place{
+  background:rgba(255,255,255,.96);border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 18px 44px rgba(8,14,52,.35);
+}
+section.ubicacion .place .info{background:transparent;border-top-color:rgba(16,26,74,.14)}
+section.ubicacion .place .info h3{color:var(--ink)}
+section.ubicacion .place .info p{color:var(--ink-2)}
+section.ubicacion .place .info .cp{color:var(--rey)}
+section.ubicacion .place .sketch{background:var(--rey-050)}
+section.ubicacion .btn-line{
+  border-color:rgba(255,255,255,.65);color:#fff;background:transparent;
+}
+section.ubicacion .btn-line:hover{background:#fff;color:var(--rey)}
+
+
+section.ubicacion .sym::before{background:linear-gradient(90deg,transparent,rgba(255,255,255,.55))}
+section.ubicacion .sym::after{background:linear-gradient(90deg,rgba(255,255,255,.55),transparent)}
+
+/* =====================================================================
+   FONDOS UNIFICADOS · patrón floral visible en toda la página
+   Todas las secciones usan el fondo de la galería (transparente), de
+   modo que el patrón del lienzo se ve detrás. Las secciones azules
+   llevan el azul TRANSPARENTE para que el dibujo se perciba a través.
+   ===================================================================== */
+
+/* --- secciones claras: transparentes, se ve el patrón --- */
+section.mist,section.plain,section.galeria,section.ubicacion-clara{
+  background:transparent;
+}
+section.tint{background:transparent}
+
+/* --- secciones azules: azul con alfa, patrón visible a través --- */
+section.deep,section.deep.on-dark{background:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%);color:#fff}
+
+/* el patrón sube de opacidad para que se perciba sobre el azul */
+.sheet::after{opacity:.65}
+
+/* los bloques con contenido propio siguen opacos para leerse */
+section.deep .countdown div{background:rgba(255,255,255,.14)}
+section.deep .note,section.ubicacion .note{background:rgba(255,255,255,.94)}
+
+
+/* =====================================================================
+   UBICACIÓN · fondo gris oscuro con poca transparencia
+   Es la única sección con este fondo. El patrón floral se percibe
+   apenas detrás, y los elementos van resaltados para leerse bien.
+   ===================================================================== */
+section.ubicacion{
+  background:linear-gradient(168deg,
+    rgba(29,52,168,.90) 0%,
+    rgba(36,64,200,.88) 55%,
+    rgba(36,64,200,.90) 100%);
+  color:#fff;
+  border-top:1px solid rgba(255,255,255,.10);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+/* etiqueta y título, con más presencia */
+section.ubicacion .sec-label{color:var(--rey-300);letter-spacing:.56em}
+section.ubicacion .block-title{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.35)}
+
+/* los elementos resaltados: mapa, ficha y enlace */
+section.ubicacion .place{
+  background:#fff;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:6px;
+  box-shadow:0 22px 54px rgba(6,10,32,.55), 0 0 0 1px rgba(255,255,255,.10);
+  overflow:hidden;
+}
+section.ubicacion .place .sketch{
+  background:var(--rey-050);
+  border-bottom:1px solid rgba(16,26,74,.10);
+}
+section.ubicacion .place .info{background:#fff;border-top:0}
+section.ubicacion .place .info h3{
+  color:var(--ink);font-size:23px;font-weight:500;
+}
+section.ubicacion .place .info p{color:var(--ink-2);font-size:14px;line-height:1.6}
+section.ubicacion .place .info .cp{
+  color:var(--rey);font-weight:500;letter-spacing:.24em;
+}
+
+/* el botón, resaltado en blanco con texto azul */
+section.ubicacion .btn-line{
+  background:#fff;color:var(--rey);
+  border:1px solid #fff;
+  box-shadow:0 14px 34px rgba(6,10,32,.45);
+  font-weight:500;
+}
+section.ubicacion .btn-line:hover{background:var(--rey);color:#fff;border-color:var(--rey)}
+
+
+section.ubicacion .rama .baya{fill:#fff}
+
+/* el mapa: calles y edificios con más contraste */
+section.ubicacion .place .sketch .street{stroke:var(--rey-300);stroke-width:1.1}
+section.ubicacion .place .sketch .street-major{stroke:var(--rey);stroke-width:1.5}
+section.ubicacion .place .sketch .build{fill:#fff;stroke:var(--rey-300)}
+section.ubicacion .place .sketch .build.royal{fill:var(--rey-100);stroke:var(--rey)}
+section.ubicacion .place .sketch .pin{fill:var(--rey)}
+
+/* =====================================================================
+   PIE · anillos de boda en línea
+   ===================================================================== */
+footer .anillos-pie{
+  display:block;width:64px;height:36px;margin:0 auto;
+  overflow:visible;
+}
+
+
+
+
+/* =====================================================================
+   PIE · anillos de boda 2D con volumen
+   Cada aro lleva aro exterior, aro interior, bisel de luz, dos brillos
+   especulares y una banda central que marca el enlace.
+   ===================================================================== */
+footer .anillos-pie circle,footer .anillos-pie path{
+  fill:none;stroke-linecap:round;stroke-linejoin:round;
+}
+footer .anillos-pie .aro.fuera{stroke:#fff;stroke-width:1.7}
+footer .anillos-pie .aro.dentro{stroke:rgba(255,255,255,.42);stroke-width:.9}
+footer .anillos-pie .bisel{stroke:rgba(255,255,255,.28);stroke-width:2.4}
+footer .anillos-pie .brillo{stroke:rgba(255,255,255,.95);stroke-width:1.5}
+footer .anillos-pie .brillo.fino{stroke:rgba(255,255,255,.35);stroke-width:1}
+footer .anillos-pie .banda{stroke:rgba(255,255,255,.75);stroke-width:1.2}
+footer .anillos-pie .destello{stroke:rgba(255,255,255,.45);stroke-width:1}
+
+/* el aro derecho pasa por encima del izquierdo */
+footer .anillos-pie .aro-der .aro.fuera{stroke-width:1.9}
+footer .anillos-pie .aro-der .brillo{stroke:rgba(255,255,255,1)}
+
+/* =====================================================================
+   SEPARADOR DE RAMA · versión detallada
+   Tallo de doble línea, ramillas, tres tipos de hoja con nervadura y
+   venas, botones florales y bayas. Dos ramas por composición.
+   ===================================================================== */
+.rama-wrap{display:flex;justify-content:center;margin:20px auto 0}
+.rama-fina{display:block;width:100%;max-width:232px;margin:0 auto}
+.rama-fina path,.rama-fina circle{
+  fill:none;stroke:var(--rey);stroke-linecap:round;stroke-linejoin:round;
+}
+.rama-fina .tallo{stroke-width:1.1;opacity:.75}
+.rama-fina .tallo.fino{stroke-width:.7}
+.rama-fina .ramilla{stroke-width:.8;opacity:.6}
+.rama-fina .hojas path{stroke-width:.8;opacity:.85}
+.rama-fina .hojas .nervio{stroke-width:.6;opacity:.55}
+.rama-fina .hojas .vena{stroke-width:.5;opacity:.4}
+.rama-fina .hojas-menudas path{stroke-width:.7;opacity:.7}
+.rama-fina .botones circle{stroke-width:.9;opacity:.9}
+.rama-fina .botones .petalo{stroke-width:.65;opacity:.6}
+.rama-fina .baya{fill:var(--rey);stroke:none;opacity:.9}
+
+/* sobre fondos oscuros */
+.rama-wrap.on-dark .rama-fina path,.rama-wrap.on-dark .rama-fina circle{stroke:rgba(255,255,255,.85)}
+.rama-wrap.on-dark .rama-fina .baya{fill:#fff}
+.rama-wrap.on-dark .rama-fina .ramilla{opacity:.55}
+.rama-wrap.on-dark .rama-fina .hojas .nervio{opacity:.5}
+.rama-wrap.on-dark .rama-fina .hojas .vena{opacity:.35}
+
+/* sección de ubicación */
+section.ubicacion .rama-fina path,section.ubicacion .rama-fina circle{stroke:#fff;opacity:.9}
+section.ubicacion .rama-fina .baya{fill:#fff}
+
+/* =====================================================================
+   CONFIRMACIÓN · el dibujo va arriba, el texto debajo, todo en blanco
+   ===================================================================== */
+
+section.confirmacion-sec .sec-label{color:rgba(255,255,255,.85)}
+
+section.confirmacion-sec .lead{color:rgba(255,255,255,.92)}
+
+
+/* =====================================================================
+   ESQUINAS VEGETALES · detalladas y en blanco
+   ===================================================================== */
+.esq{position:absolute;top:-6px;left:-10px;width:150px;opacity:.75}
+.esq-der{left:auto;right:-10px;top:-6px;transform:scaleX(-1)}
+.esq path,.esq circle{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round}
+.esq .tallo{stroke-width:1.2;opacity:.85}
+.esq .tallo.fino{stroke-width:.7}
+.esq .ramilla{stroke-width:.85;opacity:.6}
+.esq .hojas path{stroke-width:.95;opacity:.85}
+.esq .hojas .nervio{stroke-width:.65;opacity:.55}
+.esq .hojas .vena{stroke-width:.55;opacity:.4}
+.esq .hojas-menudas path{stroke-width:.8;opacity:.7}
+
+/* =====================================================================
+   CONFIRMACIÓN · esquinas vegetales más detalladas y en blanco pleno
+   ===================================================================== */
+section.confirmacion-sec .esquinas{overflow:hidden}
+section.confirmacion-sec .esq{
+  position:absolute;top:-5px;left:-8px;width:118px;height:118px;opacity:1;
+}
+section.confirmacion-sec .esq-der{left:auto;right:-8px;top:-5px;transform:scaleX(-1)}
+section.confirmacion-sec .esq path,
+section.confirmacion-sec .esq circle,
+section.confirmacion-sec .esq g{
+  fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;
+}
+section.confirmacion-sec .esq .tallo{stroke-width:1.9;opacity:1}
+section.confirmacion-sec .esq .tallo.fino{stroke-width:1.1;opacity:.7}
+section.confirmacion-sec .esq .ramilla{stroke-width:1.4;opacity:.85}
+section.confirmacion-sec .esq .hojas{opacity:1}
+section.confirmacion-sec .esq .hojas path{stroke-width:1.5;opacity:1}
+section.confirmacion-sec .esq .hojas .nervio{stroke-width:1;opacity:.75}
+section.confirmacion-sec .esq .hojas .vena{stroke-width:.85;opacity:.6}
+section.confirmacion-sec .esq .hojas-menudas path{stroke-width:1.3;opacity:.95}
+section.confirmacion-sec .esq .baya{fill:#fff;stroke:none}
+
+/* =====================================================================
+   CONFIRMACIÓN · etiqueta · rama · título, todo centrado
+   ===================================================================== */
+section.confirmacion-sec .section-body{text-align:center}
+
+
+
+
+section.confirmacion-sec .block-title{
+  margin:0 auto;text-align:center;
+}
+
+
+/* =====================================================================
+   CONFIRMACIÓN · ritmo vertical, sin amontonamiento
+   etiqueta · rama · título · párrafo · anillos · botón
+   ===================================================================== */
+section.confirmacion-sec{padding:34px 30px 56px}
+section.confirmacion-sec .section-body{text-align:center}
+
+/* etiqueta */
+section.confirmacion-sec .sec-head{
+  margin:0 auto 0;text-align:center;display:flex;flex-direction:column;align-items:center;
+}
+section.confirmacion-sec .sec-label{
+  margin:0;color:rgba(255,255,255,.85);letter-spacing:.5em;
+}
+
+/* la rama, con aire arriba y abajo */
+section.confirmacion-sec .rama-wrap{
+  display:flex;justify-content:center;align-items:center;
+  margin:16px auto 22px;width:100%;
+}
+section.confirmacion-sec .rama-fina{max-width:140px;opacity:.9}
+
+/* el título, con su propio respiro */
+section.confirmacion-sec .block-title{
+  margin:0 auto;text-align:center;color:#fff;
+  text-shadow:0 2px 14px rgba(0,0,0,.25);
+  line-height:1.12;
+}
+
+/* el párrafo, separado del título */
+section.confirmacion-sec .lead{
+  text-align:center;color:rgba(255,255,255,.92);
+  max-width:340px;margin:20px auto 0;line-height:1.7;
+}
+
+/* los anillos y el botón */
+section.confirmacion-sec .anillos{margin:0 auto 22px}
+section.confirmacion-sec [data-rsvp]{margin:0 auto}
+</style>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+</head>
+<body>
+
+<!-- ============ SOBRE DE APERTURA ============ -->
+<div class="sobre" id="sobre" role="dialog" aria-label="Abrir la invitación">
+  <div class="estrellas" id="estrellas" aria-hidden="true"></div>
+  <div class="sobre-luz" aria-hidden="true"></div>
+  <div class="sobre-carta" id="sobreCarta">
+        <div class="sobre-sello" aria-hidden="true">
+      <svg viewBox="0 0 44 40"><path d="M22 36C11 27 4 20 4 13A9 9 0 0 1 22 7 9 9 0 0 1 40 13c0 7-7 14-18 23z"/></svg>
+    </div>
+
+
+    <div class="sobre-texto">
+      <p class="sobre-nombre">Cristhian</p>
+      <p class="sobre-y">&amp;</p>
+      <p class="sobre-nombre2">Mayrane</p>
+      <div class="sobre-filete"><i></i></div>
+      <p class="sobre-fecha">28 de noviembre de 2026</p>
+      <p class="sobre-invita">Les invitamos cordialmente</p>
+      <button class="btn btn-sobre" type="button" id="abrirSobre">Abrir</button>
+    </div>
+    </div>
+  <p class="sobre-pie">Toca para ver la invitación</p>
+</div>
+
+<main class="sheet">
+
+  <!-- ============ 1 · APERTURA ============ -->
+                            <header class="opening" id="inicio">
+    <div class="opening-card">
+      <div class="opening-inner">
+
+        <p class="std">Reserva la fecha</p>
+        <div class="std-line"></div>
+        <p class="std-label">Nuestra boda</p>
+
+        <div class="initials">
+          <div class="corona-wrap">
+            <svg class="corona corona-v3" viewBox="0 0 132 152" aria-hidden="true">
+              <path class="tallo" d="M66 142C47 136 32 121 26 100 20 79 25 55 38 40"/>
+              <path class="tallo" d="M66 142c19-6 34-21 40-42 6-21 1-45-12-60"/>
+              <path class="tallo" d="M52 66c7-8 14-11 22-9" opacity=".55"/>
+              <path class="tallo" d="M80 66c-7-8-14-11-22-9" opacity=".55"/>
+              <g class="flor">
+                <circle cx="66" cy="30" r="7"/>
+                <path d="M66 23v-5M66 37v5M59 30h-5M73 30h5"/>
+                <path d="M61 25l-4-4M71 25l4-4M61 35l-4 4M71 35l4 4"/>
+              </g>
+              <path class="lazo" d="M66 142c-6 5-12.5 4.2-16-.6 4.8-4.6 11.2-5 16 .6z"/>
+              <path class="lazo" d="M66 142c6 5 12.5 4.2 16-.6-4.8-4.6-11.2-5-16 .6z"/>
+            </svg>
+            <span class="mono-cm">C<i>&amp;</i>M</span>
+          </div>
+        </div>
+
+        <svg class="anillos" viewBox="0 0 96 60" width="84" aria-hidden="true">
+          <circle cx="32" cy="30" r="21" stroke-width="2.2"/>
+          <circle class="aro-b" cx="64" cy="30" r="21" stroke-width="2.2"/>
+          <path class="brillo" d="M22 20c3-4 7-6 12-6" stroke-width="1.6"/>
+          <path class="brillo" d="M54 20c3-4 7-6 12-6" stroke-width="1.6"/>
+        </svg>
+
+        <p class="couple">Cristhian &amp; Mayrane</p>
+        <div class="date-band"><span>28 · 11 · 2026</span></div>
+        <p class="std-note">Tierra y Libertad · Cuautitlán</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 2 · HISTORIA ============ -->
+  <section class="mist">
+    <div class="esquinas" aria-hidden="true"><svg class="esq" viewBox="0 0 150 150" aria-hidden="true">
+      <path class="tallo" d="M8 8C46 16 78 36 104 64"/>
+      <path class="tallo fino" d="M11 11C48 19 79 39 104 67" opacity=".4"/>
+      <path class="ramilla" d="M40 22c7-1 12-5 15-10"/>
+      <path class="ramilla" d="M68 36c6-1 11-4 14-9"/>
+      <g class="hojas">
+        <path d="M32 14c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M33 13c2-5 5-10 7-13"/>
+        <path class="vena" d="M36 9l-4-2M38 5l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M54 24c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M55 23c2-5 5-10 7-13"/>
+        <path class="vena" d="M58 19l-4-2M60 15l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M76 38c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M77 37c2-5 5-10 7-13"/>
+        <path class="vena" d="M80 33l-4-2M82 29l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M96 56c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M97 55c2-5 5-10 7-13"/>
+        <path class="vena" d="M100 51l-4-2M102 47l3 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M24 28c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M25 29c5 0 9 2 12 5"/>
+        <path class="vena" d="M30 30l1-4M35 32l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M44 42c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M45 43c5 0 9 2 12 5"/>
+        <path class="vena" d="M50 44l1-4M55 46l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M64 58c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M65 59c5 0 9 2 12 5"/>
+        <path class="vena" d="M70 60l1-4M75 62l-1-4"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M18 20c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M88 68c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+      </g>
+      <path class="tallo" d="M8 8C32 32 54 74 62 114" opacity=".5"/>
+      <g class="hojas" opacity=".78">
+        <path d="M28 54c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M42 84c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M52 112c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+      </g>
+    </svg><svg class="esq esq-der" viewBox="0 0 150 150" aria-hidden="true">
+      <path class="tallo" d="M8 8C46 16 78 36 104 64"/>
+      <path class="tallo fino" d="M11 11C48 19 79 39 104 67" opacity=".4"/>
+      <path class="ramilla" d="M40 22c7-1 12-5 15-10"/>
+      <path class="ramilla" d="M68 36c6-1 11-4 14-9"/>
+      <g class="hojas">
+        <path d="M32 14c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M33 13c2-5 5-10 7-13"/>
+        <path class="vena" d="M36 9l-4-2M38 5l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M54 24c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M55 23c2-5 5-10 7-13"/>
+        <path class="vena" d="M58 19l-4-2M60 15l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M76 38c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M77 37c2-5 5-10 7-13"/>
+        <path class="vena" d="M80 33l-4-2M82 29l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M96 56c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M97 55c2-5 5-10 7-13"/>
+        <path class="vena" d="M100 51l-4-2M102 47l3 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M24 28c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M25 29c5 0 9 2 12 5"/>
+        <path class="vena" d="M30 30l1-4M35 32l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M44 42c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M45 43c5 0 9 2 12 5"/>
+        <path class="vena" d="M50 44l1-4M55 46l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M64 58c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M65 59c5 0 9 2 12 5"/>
+        <path class="vena" d="M70 60l1-4M75 62l-1-4"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M18 20c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M88 68c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+      </g>
+      <path class="tallo" d="M8 8C32 32 54 74 62 114" opacity=".5"/>
+      <g class="hojas" opacity=".78">
+        <path d="M28 54c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M42 84c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M52 112c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+      </g>
+    </svg></div>
+    <div class="section-body">
+      <div class="sec-head reveal" data-anim="up">
+        <span class="sec-label">Nuestra historia</span>
+        <h2 class="block-title">Cómo empezó</h2>
+      </div>
+      <div class="rama-wrap" data-anim="spread" data-delay="2"><svg class="rama rama-fina" viewBox="0 0 260 44" aria-hidden="true">
+      <!-- tallo principal, de doble línea -->
+      <path class="tallo" d="M12 34C62 34 110 26 150 16"/>
+      <path class="tallo fino" d="M12 36.4C62 36.4 110 28.4 150 18.4" opacity=".45"/>
+      <!-- ramillas secundarias -->
+      <path class="ramilla" d="M52 32c8-2 14-6 18-11"/>
+      <path class="ramilla" d="M96 26c7-2 12-5 16-10"/>
+      <path class="ramilla" d="M128 20c5-1.5 9-4 12-7"/>
+      <!-- hojas largas, con nervadura y venas -->
+      <g class="hojas">
+        <path d="M44 30c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M45 29c3-6 6-11 8-15"/>
+        <path class="vena" d="M48 24l-4-2M50 20l4 1M50 25l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M66 27c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M67 26c3-6 6-11 8-15"/>
+        <path class="vena" d="M70 21l-4-2M72 17l4 1M72 22l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M88 24c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M89 23c3-6 6-11 8-15"/>
+        <path class="vena" d="M92 18l-4-2M94 14l4 1M94 19l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M110 21c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M111 20c3-6 6-11 8-15"/>
+        <path class="vena" d="M114 15l-4-2M116 11l4 1M116 16l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M132 17c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M133 16c3-6 6-11 8-15"/>
+        <path class="vena" d="M136 11l-4-2M138 7l4 1M138 12l4-2"/>
+      </g>
+      <!-- hojas redondas, del revés -->
+      <g class="hojas hojas-redondas">
+        <path d="M56 31c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M57 32c6 0 11 2 15 6"/>
+        <path class="vena" d="M62 33l1-4M67 35l-1-4M63 37l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M78 28c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M79 29c6 0 11 2 15 6"/>
+        <path class="vena" d="M84 30l1-4M89 32l-1-4M85 34l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M100 25c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M101 26c6 0 11 2 15 6"/>
+        <path class="vena" d="M106 27l1-4M111 29l-1-4M107 31l-4 1"/>
+      </g>
+      <!-- hojitas pequeñas -->
+      <g class="hojas hojas-menudas">
+        <path d="M36 25c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M144 12c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M124 8c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <!-- botones florales -->
+      <g class="botones">
+        <circle cx="158" cy="13" r="3"/>
+        <path class="petalo" d="M158 10c-2-3 0-6 2-7 2 3 0 6-2 7zM158 16c-2 3 0 6 2 7 2-3 0-6-2-7zM155 13c-3-1.5-6 0-7 2 3 2 6 0 7-2zM161 13c3-1.5 6 0 7 2-3 2-6 0-7-2z"/>
+      </g>
+      <g class="botones">
+        <circle cx="118" cy="8" r="2.2"/>
+        <path class="petalo" d="M118 5.8c-1.5-2.2 0-4.4 1.5-5.2 1.5 2.2 0 4.4-1.5 5.2zM118 10.2c-1.5 2.2 0 4.4 1.5 5.2 1.5-2.2 0-4.4-1.5-5.2z"/>
+      </g>
+      <!-- bayas -->
+      <circle class="baya" cx="172" cy="9" r="2.6"/>
+      <circle class="baya" cx="179" cy="12.5" r="2"/>
+      <!-- segunda rama, más corta y colgante -->
+      <path class="tallo" d="M250 38c-20-1-36-5-48-12"/>
+      <path class="ramilla" d="M222 34c5 2 9 5 12 6"/>
+      <g class="hojas">
+        <path d="M206 30c-4-8 0-14 8-17 3 8-1 14-8 17z"/>
+        <path class="nervio" d="M207 29c3-5 5-10 7-13"/>
+        <path class="vena" d="M210 25l-4-2M212 21l4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M232 33c8-3 14 0 16 8-8 3-14 0-16-8z"/>
+        <path class="nervio" d="M233 34c5 0 10 2 13 5"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M246 30c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M190 22c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <circle class="baya" cx="188" cy="20" r="2.2"/>
+    </svg></div>
+
+      <svg class="figure reveal" data-anim="up" data-delay="2" viewBox="0 0 280 120" aria-hidden="true"
+           style="width:100%;max-width:280px;margin:4px auto 30px" data-scene>
+        <path class="trace royal" d="M140 16c-30 30-58 40-58 62a58 58 0 0 0 116 0c0-22-28-32-58-62z" stroke-width="1.2"/>
+        <circle class="trace" cx="140" cy="78" r="12" stroke-width="1"/>
+        <path class="trace soft" d="M16 78h50M214 78h50" stroke-width="1"/>
+        <path class="trace soft" d="M40 70v16M240 70v16" stroke-width="1"/>
+        <circle class="solid" cx="40" cy="78" r="3"/>
+        <circle class="solid" cx="240" cy="78" r="3"/>
+        <circle class="solid" cx="140" cy="78" r="3.4"/>
+      </svg>
+
+      <p class="lead reveal" data-anim="up" data-delay="3">
+        Nos conocimos en una fiesta, entre luces y música que nadie recuerda con exactitud.
+        Lo que sí recordamos es que la conversación no se acabó esa noche, ni la siguiente,
+        ni ninguna de las que vinieron después.
+      </p>
+      <p class="lead reveal" data-anim="up" data-delay="4" style="font-size:15.5px;color:var(--ink-soft)">
+        Entre risas que se volvieron costumbre y planes que se volvieron casa,
+        descubrimos que lo nuestro no era casualidad: era decisión.
+        Hoy elegimos seguir eligiéndonos.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 3 · CUENTA REGRESIVA ============ -->
+  <section class="deep">
+    <div class="section-body">
+      <div class="sec-head reveal" data-anim="up">
+        <span class="sec-label">La cuenta</span>
+        <h2 class="block-title">Falta poco</h2>
+      </div>
+      <div class="rama-wrap on-dark" data-anim="spread" data-delay="2"><svg class="rama rama-fina" viewBox="0 0 260 44" aria-hidden="true">
+      <!-- tallo principal, de doble línea -->
+      <path class="tallo" d="M12 34C62 34 110 26 150 16"/>
+      <path class="tallo fino" d="M12 36.4C62 36.4 110 28.4 150 18.4" opacity=".45"/>
+      <!-- ramillas secundarias -->
+      <path class="ramilla" d="M52 32c8-2 14-6 18-11"/>
+      <path class="ramilla" d="M96 26c7-2 12-5 16-10"/>
+      <path class="ramilla" d="M128 20c5-1.5 9-4 12-7"/>
+      <!-- hojas largas, con nervadura y venas -->
+      <g class="hojas">
+        <path d="M44 30c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M45 29c3-6 6-11 8-15"/>
+        <path class="vena" d="M48 24l-4-2M50 20l4 1M50 25l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M66 27c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M67 26c3-6 6-11 8-15"/>
+        <path class="vena" d="M70 21l-4-2M72 17l4 1M72 22l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M88 24c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M89 23c3-6 6-11 8-15"/>
+        <path class="vena" d="M92 18l-4-2M94 14l4 1M94 19l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M110 21c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M111 20c3-6 6-11 8-15"/>
+        <path class="vena" d="M114 15l-4-2M116 11l4 1M116 16l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M132 17c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M133 16c3-6 6-11 8-15"/>
+        <path class="vena" d="M136 11l-4-2M138 7l4 1M138 12l4-2"/>
+      </g>
+      <!-- hojas redondas, del revés -->
+      <g class="hojas hojas-redondas">
+        <path d="M56 31c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M57 32c6 0 11 2 15 6"/>
+        <path class="vena" d="M62 33l1-4M67 35l-1-4M63 37l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M78 28c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M79 29c6 0 11 2 15 6"/>
+        <path class="vena" d="M84 30l1-4M89 32l-1-4M85 34l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M100 25c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M101 26c6 0 11 2 15 6"/>
+        <path class="vena" d="M106 27l1-4M111 29l-1-4M107 31l-4 1"/>
+      </g>
+      <!-- hojitas pequeñas -->
+      <g class="hojas hojas-menudas">
+        <path d="M36 25c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M144 12c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M124 8c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <!-- botones florales -->
+      <g class="botones">
+        <circle cx="158" cy="13" r="3"/>
+        <path class="petalo" d="M158 10c-2-3 0-6 2-7 2 3 0 6-2 7zM158 16c-2 3 0 6 2 7 2-3 0-6-2-7zM155 13c-3-1.5-6 0-7 2 3 2 6 0 7-2zM161 13c3-1.5 6 0 7 2-3 2-6 0-7-2z"/>
+      </g>
+      <g class="botones">
+        <circle cx="118" cy="8" r="2.2"/>
+        <path class="petalo" d="M118 5.8c-1.5-2.2 0-4.4 1.5-5.2 1.5 2.2 0 4.4-1.5 5.2zM118 10.2c-1.5 2.2 0 4.4 1.5 5.2 1.5-2.2 0-4.4-1.5-5.2z"/>
+      </g>
+      <!-- bayas -->
+      <circle class="baya" cx="172" cy="9" r="2.6"/>
+      <circle class="baya" cx="179" cy="12.5" r="2"/>
+      <!-- segunda rama, más corta y colgante -->
+      <path class="tallo" d="M250 38c-20-1-36-5-48-12"/>
+      <path class="ramilla" d="M222 34c5 2 9 5 12 6"/>
+      <g class="hojas">
+        <path d="M206 30c-4-8 0-14 8-17 3 8-1 14-8 17z"/>
+        <path class="nervio" d="M207 29c3-5 5-10 7-13"/>
+        <path class="vena" d="M210 25l-4-2M212 21l4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M232 33c8-3 14 0 16 8-8 3-14 0-16-8z"/>
+        <path class="nervio" d="M233 34c5 0 10 2 13 5"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M246 30c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M190 22c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <circle class="baya" cx="188" cy="20" r="2.2"/>
+    </svg></div>
+      <div class="countdown reveal" data-anim="up" data-delay="3">
+        <div><b id="cd-d">--</b><span>Días</span></div>
+        <div><b id="cd-h">--</b><span>Horas</span></div>
+        <div><b id="cd-m">--</b><span>Min</span></div>
+        <div><b id="cd-s">--</b><span>Seg</span></div>
+      </div>
+      <p class="lead reveal" data-anim="up" data-delay="4" style="font-size:15px;margin-top:28px">
+        Mientras llega el gran día, ve guardando el atuendo.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 4 · ITINERARIO ============ -->
+  <section class="plain">
+    <div class="section-body">
+      <div class="sec-head reveal" data-anim="up">
+        <span class="sec-label">Itinerario</span>
+        <h2 class="block-title">El día</h2>
+      </div>
+      <div class="rama-wrap" data-anim="spread" data-delay="2"><svg class="rama rama-fina" viewBox="0 0 260 44" aria-hidden="true">
+      <!-- tallo principal, de doble línea -->
+      <path class="tallo" d="M12 34C62 34 110 26 150 16"/>
+      <path class="tallo fino" d="M12 36.4C62 36.4 110 28.4 150 18.4" opacity=".45"/>
+      <!-- ramillas secundarias -->
+      <path class="ramilla" d="M52 32c8-2 14-6 18-11"/>
+      <path class="ramilla" d="M96 26c7-2 12-5 16-10"/>
+      <path class="ramilla" d="M128 20c5-1.5 9-4 12-7"/>
+      <!-- hojas largas, con nervadura y venas -->
+      <g class="hojas">
+        <path d="M44 30c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M45 29c3-6 6-11 8-15"/>
+        <path class="vena" d="M48 24l-4-2M50 20l4 1M50 25l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M66 27c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M67 26c3-6 6-11 8-15"/>
+        <path class="vena" d="M70 21l-4-2M72 17l4 1M72 22l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M88 24c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M89 23c3-6 6-11 8-15"/>
+        <path class="vena" d="M92 18l-4-2M94 14l4 1M94 19l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M110 21c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M111 20c3-6 6-11 8-15"/>
+        <path class="vena" d="M114 15l-4-2M116 11l4 1M116 16l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M132 17c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M133 16c3-6 6-11 8-15"/>
+        <path class="vena" d="M136 11l-4-2M138 7l4 1M138 12l4-2"/>
+      </g>
+      <!-- hojas redondas, del revés -->
+      <g class="hojas hojas-redondas">
+        <path d="M56 31c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M57 32c6 0 11 2 15 6"/>
+        <path class="vena" d="M62 33l1-4M67 35l-1-4M63 37l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M78 28c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M79 29c6 0 11 2 15 6"/>
+        <path class="vena" d="M84 30l1-4M89 32l-1-4M85 34l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M100 25c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M101 26c6 0 11 2 15 6"/>
+        <path class="vena" d="M106 27l1-4M111 29l-1-4M107 31l-4 1"/>
+      </g>
+      <!-- hojitas pequeñas -->
+      <g class="hojas hojas-menudas">
+        <path d="M36 25c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M144 12c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M124 8c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <!-- botones florales -->
+      <g class="botones">
+        <circle cx="158" cy="13" r="3"/>
+        <path class="petalo" d="M158 10c-2-3 0-6 2-7 2 3 0 6-2 7zM158 16c-2 3 0 6 2 7 2-3 0-6-2-7zM155 13c-3-1.5-6 0-7 2 3 2 6 0 7-2zM161 13c3-1.5 6 0 7 2-3 2-6 0-7-2z"/>
+      </g>
+      <g class="botones">
+        <circle cx="118" cy="8" r="2.2"/>
+        <path class="petalo" d="M118 5.8c-1.5-2.2 0-4.4 1.5-5.2 1.5 2.2 0 4.4-1.5 5.2zM118 10.2c-1.5 2.2 0 4.4 1.5 5.2 1.5-2.2 0-4.4-1.5-5.2z"/>
+      </g>
+      <!-- bayas -->
+      <circle class="baya" cx="172" cy="9" r="2.6"/>
+      <circle class="baya" cx="179" cy="12.5" r="2"/>
+      <!-- segunda rama, más corta y colgante -->
+      <path class="tallo" d="M250 38c-20-1-36-5-48-12"/>
+      <path class="ramilla" d="M222 34c5 2 9 5 12 6"/>
+      <g class="hojas">
+        <path d="M206 30c-4-8 0-14 8-17 3 8-1 14-8 17z"/>
+        <path class="nervio" d="M207 29c3-5 5-10 7-13"/>
+        <path class="vena" d="M210 25l-4-2M212 21l4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M232 33c8-3 14 0 16 8-8 3-14 0-16-8z"/>
+        <path class="nervio" d="M233 34c5 0 10 2 13 5"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M246 30c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M190 22c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <circle class="baya" cx="188" cy="20" r="2.2"/>
+    </svg></div>
+
+      <div class="agenda">
+        <div class="item reveal" data-anim="up" data-delay="2">
+          <span class="hour">6:00<br/>pm</span>
+          <div>
+            <h3>Casamiento</h3>
+            <p>El sí más esperado, rodeados de las personas que nos vieron llegar hasta aquí.</p>
+            <span class="where">Tierra y Libertad · Cuautitlán</span>
+          </div>
+        </div>
+
+        <div class="item reveal" data-anim="up" data-delay="3">
+          <span class="hour">8:00<br/>pm</span>
+          <div>
+            <h3>Comida y baile</h3>
+            <p>Mesa larga, brindis y pista abierta hasta que el cuerpo aguante.</p>
+            <span class="where">Salón · hasta la madrugada</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="programa">
+  <div class="paso reveal" data-anim="up" data-delay="1"><span class="p-hora">6:00</span><div class="p-txt"><h4>Casamiento</h4><p>Ceremonia en Tierra y Libertad</p></div></div>
+  <div class="paso reveal" data-anim="up" data-delay="2"><span class="p-hora">7:00</span><div class="p-txt"><h4>Cóctel de bienvenida</h4><p>Jardín del salón</p></div></div>
+  <div class="paso reveal" data-anim="up" data-delay="3"><span class="p-hora">8:00</span><div class="p-txt"><h4>Cena</h4><p>Mesa larga para todos</p></div></div>
+  <div class="paso reveal" data-anim="up" data-delay="4"><span class="p-hora">9:00</span><div class="p-txt"><h4>Baile y brindis</h4><p>Hasta que el cuerpo aguante</p></div></div>
+</div>
+
+      <div class="note reveal" data-anim="up" data-delay="4">
+        <b>Confirma tu asistencia antes del 1 de noviembre de 2026.</b><br/>Así cuidamos cada detalle para ti.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · UBICACIÓN ============ -->
+  <section class="deep ubicacion">
+    <div class="section-body">
+      <div class="sec-head reveal" data-anim="up">
+        <span class="sec-label">Ubicación</span>
+        <h2 class="block-title">Cómo llegar</h2>
+      </div>
+      <div class="rama-wrap" data-anim="spread" data-delay="2"><svg class="rama rama-fina" viewBox="0 0 260 44" aria-hidden="true">
+      <!-- tallo principal, de doble línea -->
+      <path class="tallo" d="M12 34C62 34 110 26 150 16"/>
+      <path class="tallo fino" d="M12 36.4C62 36.4 110 28.4 150 18.4" opacity=".45"/>
+      <!-- ramillas secundarias -->
+      <path class="ramilla" d="M52 32c8-2 14-6 18-11"/>
+      <path class="ramilla" d="M96 26c7-2 12-5 16-10"/>
+      <path class="ramilla" d="M128 20c5-1.5 9-4 12-7"/>
+      <!-- hojas largas, con nervadura y venas -->
+      <g class="hojas">
+        <path d="M44 30c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M45 29c3-6 6-11 8-15"/>
+        <path class="vena" d="M48 24l-4-2M50 20l4 1M50 25l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M66 27c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M67 26c3-6 6-11 8-15"/>
+        <path class="vena" d="M70 21l-4-2M72 17l4 1M72 22l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M88 24c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M89 23c3-6 6-11 8-15"/>
+        <path class="vena" d="M92 18l-4-2M94 14l4 1M94 19l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M110 21c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M111 20c3-6 6-11 8-15"/>
+        <path class="vena" d="M114 15l-4-2M116 11l4 1M116 16l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M132 17c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M133 16c3-6 6-11 8-15"/>
+        <path class="vena" d="M136 11l-4-2M138 7l4 1M138 12l4-2"/>
+      </g>
+      <!-- hojas redondas, del revés -->
+      <g class="hojas hojas-redondas">
+        <path d="M56 31c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M57 32c6 0 11 2 15 6"/>
+        <path class="vena" d="M62 33l1-4M67 35l-1-4M63 37l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M78 28c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M79 29c6 0 11 2 15 6"/>
+        <path class="vena" d="M84 30l1-4M89 32l-1-4M85 34l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M100 25c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M101 26c6 0 11 2 15 6"/>
+        <path class="vena" d="M106 27l1-4M111 29l-1-4M107 31l-4 1"/>
+      </g>
+      <!-- hojitas pequeñas -->
+      <g class="hojas hojas-menudas">
+        <path d="M36 25c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M144 12c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M124 8c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <!-- botones florales -->
+      <g class="botones">
+        <circle cx="158" cy="13" r="3"/>
+        <path class="petalo" d="M158 10c-2-3 0-6 2-7 2 3 0 6-2 7zM158 16c-2 3 0 6 2 7 2-3 0-6-2-7zM155 13c-3-1.5-6 0-7 2 3 2 6 0 7-2zM161 13c3-1.5 6 0 7 2-3 2-6 0-7-2z"/>
+      </g>
+      <g class="botones">
+        <circle cx="118" cy="8" r="2.2"/>
+        <path class="petalo" d="M118 5.8c-1.5-2.2 0-4.4 1.5-5.2 1.5 2.2 0 4.4-1.5 5.2zM118 10.2c-1.5 2.2 0 4.4 1.5 5.2 1.5-2.2 0-4.4-1.5-5.2z"/>
+      </g>
+      <!-- bayas -->
+      <circle class="baya" cx="172" cy="9" r="2.6"/>
+      <circle class="baya" cx="179" cy="12.5" r="2"/>
+      <!-- segunda rama, más corta y colgante -->
+      <path class="tallo" d="M250 38c-20-1-36-5-48-12"/>
+      <path class="ramilla" d="M222 34c5 2 9 5 12 6"/>
+      <g class="hojas">
+        <path d="M206 30c-4-8 0-14 8-17 3 8-1 14-8 17z"/>
+        <path class="nervio" d="M207 29c3-5 5-10 7-13"/>
+        <path class="vena" d="M210 25l-4-2M212 21l4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M232 33c8-3 14 0 16 8-8 3-14 0-16-8z"/>
+        <path class="nervio" d="M233 34c5 0 10 2 13 5"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M246 30c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M190 22c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <circle class="baya" cx="188" cy="20" r="2.2"/>
+    </svg></div>
+
+      <div class="place reveal" data-anim="up" data-delay="3">
+        <div class="sketch">
+          <svg viewBox="0 0 380 172" aria-hidden="true">
+            <rect class="build" x="24" y="22" width="58" height="38" rx="2"/>
+            <rect class="build royal" x="298" y="22" width="58" height="38" rx="2"/>
+            <rect class="build royal" x="24" y="112" width="58" height="38" rx="2"/>
+            <rect class="build" x="298" y="112" width="58" height="38" rx="2"/>
+            <rect class="parcel" x="146" y="18" width="88" height="46"/>
+            <path class="street-major" d="M190 0v172"/>
+            <path class="street" d="M0 84h380"/>
+            <path class="street" d="M0 20h380" opacity=".55"/>
+            <path class="street" d="M0 152h380" opacity=".55"/>
+            <path class="street" d="M110 0v172" opacity=".8"/>
+            <path class="street" d="M270 0v172" opacity=".8"/>
+            <circle class="pulse" cx="190" cy="84" r="5">
+              <animate attributeName="r" values="5;28;28" dur="3.2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".6;0;0" dur="3.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle class="pin" cx="190" cy="84" r="4.8"/>
+          </svg>
+        </div>
+        <div class="info">
+          <h3>Tierra y Libertad</h3>
+          <p>Manzana 010, Lázaro Cárdenas<br/>54870 Cuautitlán, Estado de México</p>
+          <span class="cp">Salón de eventos · estacionamiento en la calle</span>
+        </div>
+      </div>
+
+      <a class="btn btn-line reveal" data-anim="up" data-delay="4"
+         href="https://maps.app.goo.gl/wtcmbto28mKofCxq6" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        Abrir en Google Maps
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ 6 · GALERÍA ============ -->
+  <section class="plain galeria">
+    <div class="section-body">
+      <div class="sec-head reveal" data-anim="up">
+        <span class="sec-label">Galería</span>
+        <h2 class="block-title">Recuerdos</h2>
+      </div>
+      <div class="rama-wrap" data-anim="spread" data-delay="2"><svg class="rama rama-fina" viewBox="0 0 260 44" aria-hidden="true">
+      <!-- tallo principal, de doble línea -->
+      <path class="tallo" d="M12 34C62 34 110 26 150 16"/>
+      <path class="tallo fino" d="M12 36.4C62 36.4 110 28.4 150 18.4" opacity=".45"/>
+      <!-- ramillas secundarias -->
+      <path class="ramilla" d="M52 32c8-2 14-6 18-11"/>
+      <path class="ramilla" d="M96 26c7-2 12-5 16-10"/>
+      <path class="ramilla" d="M128 20c5-1.5 9-4 12-7"/>
+      <!-- hojas largas, con nervadura y venas -->
+      <g class="hojas">
+        <path d="M44 30c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M45 29c3-6 6-11 8-15"/>
+        <path class="vena" d="M48 24l-4-2M50 20l4 1M50 25l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M66 27c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M67 26c3-6 6-11 8-15"/>
+        <path class="vena" d="M70 21l-4-2M72 17l4 1M72 22l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M88 24c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M89 23c3-6 6-11 8-15"/>
+        <path class="vena" d="M92 18l-4-2M94 14l4 1M94 19l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M110 21c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M111 20c3-6 6-11 8-15"/>
+        <path class="vena" d="M114 15l-4-2M116 11l4 1M116 16l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M132 17c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M133 16c3-6 6-11 8-15"/>
+        <path class="vena" d="M136 11l-4-2M138 7l4 1M138 12l4-2"/>
+      </g>
+      <!-- hojas redondas, del revés -->
+      <g class="hojas hojas-redondas">
+        <path d="M56 31c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M57 32c6 0 11 2 15 6"/>
+        <path class="vena" d="M62 33l1-4M67 35l-1-4M63 37l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M78 28c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M79 29c6 0 11 2 15 6"/>
+        <path class="vena" d="M84 30l1-4M89 32l-1-4M85 34l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M100 25c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M101 26c6 0 11 2 15 6"/>
+        <path class="vena" d="M106 27l1-4M111 29l-1-4M107 31l-4 1"/>
+      </g>
+      <!-- hojitas pequeñas -->
+      <g class="hojas hojas-menudas">
+        <path d="M36 25c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M144 12c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M124 8c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <!-- botones florales -->
+      <g class="botones">
+        <circle cx="158" cy="13" r="3"/>
+        <path class="petalo" d="M158 10c-2-3 0-6 2-7 2 3 0 6-2 7zM158 16c-2 3 0 6 2 7 2-3 0-6-2-7zM155 13c-3-1.5-6 0-7 2 3 2 6 0 7-2zM161 13c3-1.5 6 0 7 2-3 2-6 0-7-2z"/>
+      </g>
+      <g class="botones">
+        <circle cx="118" cy="8" r="2.2"/>
+        <path class="petalo" d="M118 5.8c-1.5-2.2 0-4.4 1.5-5.2 1.5 2.2 0 4.4-1.5 5.2zM118 10.2c-1.5 2.2 0 4.4 1.5 5.2 1.5-2.2 0-4.4-1.5-5.2z"/>
+      </g>
+      <!-- bayas -->
+      <circle class="baya" cx="172" cy="9" r="2.6"/>
+      <circle class="baya" cx="179" cy="12.5" r="2"/>
+      <!-- segunda rama, más corta y colgante -->
+      <path class="tallo" d="M250 38c-20-1-36-5-48-12"/>
+      <path class="ramilla" d="M222 34c5 2 9 5 12 6"/>
+      <g class="hojas">
+        <path d="M206 30c-4-8 0-14 8-17 3 8-1 14-8 17z"/>
+        <path class="nervio" d="M207 29c3-5 5-10 7-13"/>
+        <path class="vena" d="M210 25l-4-2M212 21l4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M232 33c8-3 14 0 16 8-8 3-14 0-16-8z"/>
+        <path class="nervio" d="M233 34c5 0 10 2 13 5"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M246 30c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M190 22c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <circle class="baya" cx="188" cy="20" r="2.2"/>
+    </svg></div>
+
+<div class="gallery">
+        <figure class="reveal" data-anim="scale" data-delay="2"><img id="g1" src="fotos/nosotros.jpg" alt="Recuerdo"></figure>
+        <figure class="reveal" data-anim="scale" data-delay="3"><img id="g2" src="fotos/la-fiesta.jpg" alt="Recuerdo"></figure>
+        <figure class="reveal" data-anim="scale" data-delay="4"><img id="g3" src="fotos/siempre.jpg" alt="Recuerdo"></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · CONFIRMACIÓN ============ -->
+  <section class="deep on-dark confirmacion-sec">
+    <div class="esquinas" aria-hidden="true"><svg class="esq" viewBox="0 0 150 150" aria-hidden="true">
+      <path class="tallo" d="M8 8C46 16 78 36 104 64"/>
+      <path class="tallo fino" d="M11 11C48 19 79 39 104 67" opacity=".4"/>
+      <path class="ramilla" d="M40 22c7-1 12-5 15-10"/>
+      <path class="ramilla" d="M68 36c6-1 11-4 14-9"/>
+      <g class="hojas">
+        <path d="M32 14c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M33 13c2-5 5-10 7-13"/>
+        <path class="vena" d="M36 9l-4-2M38 5l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M54 24c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M55 23c2-5 5-10 7-13"/>
+        <path class="vena" d="M58 19l-4-2M60 15l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M76 38c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M77 37c2-5 5-10 7-13"/>
+        <path class="vena" d="M80 33l-4-2M82 29l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M96 56c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M97 55c2-5 5-10 7-13"/>
+        <path class="vena" d="M100 51l-4-2M102 47l3 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M24 28c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M25 29c5 0 9 2 12 5"/>
+        <path class="vena" d="M30 30l1-4M35 32l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M44 42c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M45 43c5 0 9 2 12 5"/>
+        <path class="vena" d="M50 44l1-4M55 46l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M64 58c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M65 59c5 0 9 2 12 5"/>
+        <path class="vena" d="M70 60l1-4M75 62l-1-4"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M18 20c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M88 68c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+      </g>
+      <path class="tallo" d="M8 8C32 32 54 74 62 114" opacity=".5"/>
+      <g class="hojas" opacity=".78">
+        <path d="M28 54c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M42 84c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M52 112c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+      </g>
+      <path class="ramilla" d="M60 78c6 3 11 7 14 12"/>
+      <path class="ramilla" d="M84 20c5 3 9 8 11 13"/>
+      <g class="hojas">
+        <path d="M72 96c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M73 95c2-5 5-10 7-13"/>
+        <path class="vena" d="M76 91l-4-2M78 87l3 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M92 32c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M93 33c5 0 9 2 12 5"/>
+        <path class="vena" d="M98 34l1-4M103 36l-1-4"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M44 70c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M108 108c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+      </g>
+      <path class="tallo" d="M14 4c14 10 26 22 34 36" opacity=".7"/>
+      <g class="hojas" opacity=".9">
+        <path d="M30 20c-3-7 0-13 7-16 3 7 0 13-7 16z"/>
+        <path d="M44 36c-3-7 0-13 7-16 3 7 0 13-7 16z"/>
+      </g>
+      <circle class="baya" cx="118" cy="26" r="2.6"/>
+      <circle class="baya" cx="52" cy="120" r="2.2"/>
+    </svg><svg class="esq esq-der" viewBox="0 0 150 150" aria-hidden="true">
+      <path class="tallo" d="M8 8C46 16 78 36 104 64"/>
+      <path class="tallo fino" d="M11 11C48 19 79 39 104 67" opacity=".4"/>
+      <path class="ramilla" d="M40 22c7-1 12-5 15-10"/>
+      <path class="ramilla" d="M68 36c6-1 11-4 14-9"/>
+      <g class="hojas">
+        <path d="M32 14c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M33 13c2-5 5-10 7-13"/>
+        <path class="vena" d="M36 9l-4-2M38 5l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M54 24c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M55 23c2-5 5-10 7-13"/>
+        <path class="vena" d="M58 19l-4-2M60 15l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M76 38c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M77 37c2-5 5-10 7-13"/>
+        <path class="vena" d="M80 33l-4-2M82 29l3 1"/>
+      </g>
+      <g class="hojas">
+        <path d="M96 56c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M97 55c2-5 5-10 7-13"/>
+        <path class="vena" d="M100 51l-4-2M102 47l3 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M24 28c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M25 29c5 0 9 2 12 5"/>
+        <path class="vena" d="M30 30l1-4M35 32l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M44 42c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M45 43c5 0 9 2 12 5"/>
+        <path class="vena" d="M50 44l1-4M55 46l-1-4"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M64 58c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M65 59c5 0 9 2 12 5"/>
+        <path class="vena" d="M70 60l1-4M75 62l-1-4"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M18 20c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M88 68c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+      </g>
+      <path class="tallo" d="M8 8C32 32 54 74 62 114" opacity=".5"/>
+      <g class="hojas" opacity=".78">
+        <path d="M28 54c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M42 84c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+        <path d="M52 112c-8-1-13-6-14-14 8 1 13 6 14 14z"/>
+      </g>
+      <path class="ramilla" d="M60 78c6 3 11 7 14 12"/>
+      <path class="ramilla" d="M84 20c5 3 9 8 11 13"/>
+      <g class="hojas">
+        <path d="M72 96c-3-8 0-15 8-18 3 8 0 14-8 18z"/>
+        <path class="nervio" d="M73 95c2-5 5-10 7-13"/>
+        <path class="vena" d="M76 91l-4-2M78 87l3 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M92 32c7-2 13 1 16 8-7 3-13 0-16-8z"/>
+        <path class="nervio" d="M93 33c5 0 9 2 12 5"/>
+        <path class="vena" d="M98 34l1-4M103 36l-1-4"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M44 70c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M108 108c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+      </g>
+      <path class="tallo" d="M14 4c14 10 26 22 34 36" opacity=".7"/>
+      <g class="hojas" opacity=".9">
+        <path d="M30 20c-3-7 0-13 7-16 3 7 0 13-7 16z"/>
+        <path d="M44 36c-3-7 0-13 7-16 3 7 0 13-7 16z"/>
+      </g>
+      <circle class="baya" cx="118" cy="26" r="2.6"/>
+      <circle class="baya" cx="52" cy="120" r="2.2"/>
+    </svg></div>
+    <div class="section-body">
+      <div class="sec-head reveal" data-anim="up">
+        <span class="sec-label">Confirmación</span>
+      </div>
+      <div class="rama-wrap on-dark" data-anim="spread" data-delay="2"><svg class="rama rama-fina" viewBox="0 0 260 44" aria-hidden="true">
+      <!-- tallo principal, de doble línea -->
+      <path class="tallo" d="M12 34C62 34 110 26 150 16"/>
+      <path class="tallo fino" d="M12 36.4C62 36.4 110 28.4 150 18.4" opacity=".45"/>
+      <!-- ramillas secundarias -->
+      <path class="ramilla" d="M52 32c8-2 14-6 18-11"/>
+      <path class="ramilla" d="M96 26c7-2 12-5 16-10"/>
+      <path class="ramilla" d="M128 20c5-1.5 9-4 12-7"/>
+      <!-- hojas largas, con nervadura y venas -->
+      <g class="hojas">
+        <path d="M44 30c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M45 29c3-6 6-11 8-15"/>
+        <path class="vena" d="M48 24l-4-2M50 20l4 1M50 25l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M66 27c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M67 26c3-6 6-11 8-15"/>
+        <path class="vena" d="M70 21l-4-2M72 17l4 1M72 22l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M88 24c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M89 23c3-6 6-11 8-15"/>
+        <path class="vena" d="M92 18l-4-2M94 14l4 1M94 19l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M110 21c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M111 20c3-6 6-11 8-15"/>
+        <path class="vena" d="M114 15l-4-2M116 11l4 1M116 16l4-2"/>
+      </g>
+      <g class="hojas">
+        <path d="M132 17c-4-9 0-16 9-19 3 9-1 16-9 19z"/>
+        <path class="nervio" d="M133 16c3-6 6-11 8-15"/>
+        <path class="vena" d="M136 11l-4-2M138 7l4 1M138 12l4-2"/>
+      </g>
+      <!-- hojas redondas, del revés -->
+      <g class="hojas hojas-redondas">
+        <path d="M56 31c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M57 32c6 0 11 2 15 6"/>
+        <path class="vena" d="M62 33l1-4M67 35l-1-4M63 37l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M78 28c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M79 29c6 0 11 2 15 6"/>
+        <path class="vena" d="M84 30l1-4M89 32l-1-4M85 34l-4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M100 25c9-3 16 0 18 9-9 3-16 0-18-9z"/>
+        <path class="nervio" d="M101 26c6 0 11 2 15 6"/>
+        <path class="vena" d="M106 27l1-4M111 29l-1-4M107 31l-4 1"/>
+      </g>
+      <!-- hojitas pequeñas -->
+      <g class="hojas hojas-menudas">
+        <path d="M36 25c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M144 12c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M124 8c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <!-- botones florales -->
+      <g class="botones">
+        <circle cx="158" cy="13" r="3"/>
+        <path class="petalo" d="M158 10c-2-3 0-6 2-7 2 3 0 6-2 7zM158 16c-2 3 0 6 2 7 2-3 0-6-2-7zM155 13c-3-1.5-6 0-7 2 3 2 6 0 7-2zM161 13c3-1.5 6 0 7 2-3 2-6 0-7-2z"/>
+      </g>
+      <g class="botones">
+        <circle cx="118" cy="8" r="2.2"/>
+        <path class="petalo" d="M118 5.8c-1.5-2.2 0-4.4 1.5-5.2 1.5 2.2 0 4.4-1.5 5.2zM118 10.2c-1.5 2.2 0 4.4 1.5 5.2 1.5-2.2 0-4.4-1.5-5.2z"/>
+      </g>
+      <!-- bayas -->
+      <circle class="baya" cx="172" cy="9" r="2.6"/>
+      <circle class="baya" cx="179" cy="12.5" r="2"/>
+      <!-- segunda rama, más corta y colgante -->
+      <path class="tallo" d="M250 38c-20-1-36-5-48-12"/>
+      <path class="ramilla" d="M222 34c5 2 9 5 12 6"/>
+      <g class="hojas">
+        <path d="M206 30c-4-8 0-14 8-17 3 8-1 14-8 17z"/>
+        <path class="nervio" d="M207 29c3-5 5-10 7-13"/>
+        <path class="vena" d="M210 25l-4-2M212 21l4 1"/>
+      </g>
+      <g class="hojas hojas-redondas">
+        <path d="M232 33c8-3 14 0 16 8-8 3-14 0-16-8z"/>
+        <path class="nervio" d="M233 34c5 0 10 2 13 5"/>
+      </g>
+      <g class="hojas hojas-menudas">
+        <path d="M246 30c-2-5 1-9 6-10 2 5-1 9-6 10z"/>
+        <path d="M190 22c-2-4 1-8 5-9 2 4-1 8-5 9z"/>
+      </g>
+      <circle class="baya" cx="188" cy="20" r="2.2"/>
+    </svg></div>
+      <h2 class="block-title reveal" data-anim="up" data-delay="3">Te esperamos</h2>
+      
+      <p class="lead reveal" data-anim="up" data-delay="4" style="font-size:15px">
+        Solo tu nombre, si vienes y con cuántos. Toma menos de un minuto.
+      </p>
+      <div class="reveal" data-anim="up" data-delay="5" style="margin-top:28px">
+        <svg class="anillos" viewBox="0 0 96 60" width="92" aria-hidden="true">
+  <circle cx="32" cy="30" r="21" stroke-width="2.2"/>
+  <circle class="aro-b" cx="64" cy="30" r="21" stroke-width="2.2"/>
+  <path class="brillo" d="M22 20c3-4 7-6 12-6" stroke-width="1.6"/>
+  <path class="brillo" d="M54 20c3-4 7-6 12-6" stroke-width="1.6"/>
+  <path class="destello" d="M48 5v-3M48 58v3" stroke-width="1.3"/>
+</svg>
+        <button class="btn btn-white" type="button" data-rsvp>
+          <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>
+          Registrar asistencia
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PIE ============ -->
+  <footer>
+    <svg class="anillos-pie" viewBox="0 0 108 60" aria-hidden="true">
+      <!-- aro izquierdo -->
+      <g class="aro-izq">
+        <circle class="aro fuera" cx="38" cy="32" r="20"/>
+        <circle class="aro dentro" cx="38" cy="32" r="16.5"/>
+        <path class="bisel" d="M22 32a16 16 0 0 1 32 0"/>
+        <path class="brillo" d="M28 21c3-3 7-4.5 12-4"/>
+        <path class="brillo fino" d="M31 42c4 2 8 2.5 12 1"/>
+      </g>
+      <!-- aro derecho, entrelazado por encima -->
+      <g class="aro-der">
+        <circle class="aro fuera" cx="66" cy="32" r="20"/>
+        <circle class="aro dentro" cx="66" cy="32" r="16.5"/>
+        <path class="bisel" d="M50 32a16 16 0 0 1 32 0"/>
+        <path class="brillo" d="M56 21c3-3 7-4.5 12-4"/>
+        <path class="brillo fino" d="M59 42c4 2 8 2.5 12 1"/>
+      </g>
+      <!-- banda central del enlace -->
+      <path class="banda" d="M52 20.5c1.2-3 2.4-4.5 4-4.5s2.8 1.5 4 4.5"/>
+      <path class="banda" d="M52 43.5c1.2 3 2.4 4.5 4 4.5s2.8-1.5 4-4.5"/>
+      <!-- destello superior -->
+      <path class="destello" d="M52 8v-4M52 56v4"/>
+    </svg>
+    <div class="sign">Cristhian &amp; Mayrane</div>
+    <div class="meta">
+      <span>Cuautitlán, Méx.</span>
+      <span>28 · 11 · 2026</span>
+    </div>
+  </footer>
+</main>
+
+<!-- BARRA FLOTANTE -->
+<div class="floating" id="floating">
+  <button class="btn btn-royal" type="button" data-rsvp>Registrar asistencia</button>
+</div>
+
+<!-- MODAL -->
+<div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="rsvpTitulo">
+  <div class="panel">
+    <div class="grab"></div>
+    <h2 id="rsvpTitulo">Confirmar asistencia</h2>
+    <p class="sub">Solo necesitamos tres datos</p>
+
+    <form id="rsvpForm" novalidate>
+      <div class="field">
+        <label for="nombre">Tu nombre</label>
+        <input id="nombre" name="nombre" type="text" placeholder="Escribe tu nombre"
+               autocomplete="name" enterkeyhint="done" required />
+      </div>
+
+      <div class="field">
+        <label for="asiste">¿Asistirás?</label>
+        <select id="asiste" name="asiste">
+          <option value="Sí">Sí, asistiré</option>
+          <option value="No">No podré asistir</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="count">Acompañantes</label>
+        <div class="stepper">
+          <button type="button" id="minus" aria-label="Quitar acompañante">−</button>
+          <span id="count" aria-live="polite">0</span>
+          <button type="button" id="plus" aria-label="Agregar acompañante">+</button>
+        </div>
+      </div>
+
+      <p class="err" id="err" role="alert"></p>
+
+      <div class="actions">
+        <button class="btn btn-royal" type="submit">
+          <svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+          Enviar confirmación
+        </button>
+        <button class="btn btn-line" type="button" data-close-rsvp>Cancelar</button>
+      </div>
+      <p class="hint">Con tu nombre basta: nosotros ponemos el resto.</p>
+    </form>
+  </div>
+</div>
+
+<!-- GRACIAS -->
+<div class="thanks" id="thanks" role="status">
+  <svg class="figure" viewBox="0 0 240 84" aria-hidden="true">
+    <path d="M120 14c-20 20-40 26-40 44a40 40 0 0 0 80 0c0-18-20-24-40-44z" stroke-width="1.1"/>
+    <path d="M10 62h62M168 62h62" stroke-width=".85" opacity=".6"/>
+    <circle cx="120" cy="58" r="3.4" fill="#fff" stroke="none"/>
+  </svg>
+  <div class="sign">Gracias</div>
+  <p id="thanksText"></p>
+  <button class="btn btn-line" type="button" data-close-thanks>Volver a la invitación</button>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+/* =====================================================================
+   FOTOGRAFÍAS · se cargan desde la carpeta «fotos», junto al HTML
+   ===================================================================== */
+const FOTOS = { g1: "fotos/nosotros.jpg", g2: "fotos/la-fiesta.jpg", g3: "fotos/siempre.jpg" };
+
+/* =====================================================================
+   CONFIGURACIÓN
+   ===================================================================== */
+const CFG = {
+  fechaBoda: "2026-11-28T18:00:00-06:00",
+  iniciales: "C & M",
+  nombres: ["Cristhian", "Mayrane"]
+};
+
+/* =====================================================================
+   ARRANQUE
+   ===================================================================== */
+/* ==========================================================================
+   ARRANQUE · se ejecuta cuando el HTML está listo
+   ========================================================================== */
+document.addEventListener("DOMContentLoaded", () => {
+
+
+  /* ------------------------------------------------------------------
+     FOTOGRAFÍAS · asigna la ruta de cada imagen de la galería.
+     Si falta un archivo, su marco se oculta en vez de quedar vacío.
+     ------------------------------------------------------------------ */
+  /* fotografías */
+  const poner = (id, src) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (src) { el.src = src; }
+    else { el.closest("figure").style.display = "none"; }
+  };
+  poner("g1", FOTOS.g1);
+  poner("g2", FOTOS.g2);
+  poner("g3", FOTOS.g3);
+
+  /* trazo progresivo del disco y las figuras */
+  document.querySelectorAll("[data-scene] path, [data-scene] circle, [data-scene] line")
+    .forEach((p) => {
+      let l = 240;
+      try { l = p.getTotalLength(); } catch (_) {}
+      if (!isFinite(l) || l <= 0) l = 240;
+      p.style.setProperty("--len", Math.round(l + 6));
+    });
+
+  /* ------------------------------------------------------------------
+     CUENTA ATRÁS · días, horas, minutos y segundos hasta la boda.
+     La fecha se toma de CFG.fechaBoda.
+     ------------------------------------------------------------------ */
+  /* cuenta regresiva */
+  const fin = new Date(CFG.fechaBoda).getTime();
+  const el = { d: document.getElementById("cd-d"), h: document.getElementById("cd-h"),
+               m: document.getElementById("cd-m"), s: document.getElementById("cd-s") };
+  const pad = (v) => String(v).padStart(2, "0");
+  function tic() {
+    const dif = fin - Date.now();
+    if (dif <= 0) {
+      el.d.textContent = el.h.textContent = el.m.textContent = el.s.textContent = "00"; return;
+    }
+    el.d.textContent = Math.floor(dif / 86400000);
+    el.h.textContent = pad(Math.floor(dif / 3600000) % 24);
+    el.m.textContent = pad(Math.floor(dif / 60000) % 60);
+    el.s.textContent = pad(Math.floor(dif / 1000) % 60);
+  }
+  tic(); setInterval(tic, 1000);
+
+  /* animaciones de entrada */
+  const io = new IntersectionObserver((es) => {
+    es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
+  document.querySelectorAll(".reveal").forEach((n) => io.observe(n));
+
+  /* barra flotante */
+  const flot = document.getElementById("floating");
+  const onScroll = () => {
+    const y = window.scrollY;
+    const final = y + window.innerHeight > document.body.scrollHeight - 480;
+    flot.classList.toggle("show", y > 620 && !final);
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  onScroll();
+});
+
+/* =====================================================================
+   TOAST
+   ===================================================================== */
+let tTimer;
+function toast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(tTimer);
+  tTimer = setTimeout(() => t.classList.remove("show"), 2500);
+}
+
+/* =====================================================================
+   REGISTRO DE ASISTENCIA · mismo formato que el libro de Excel
+   ===================================================================== */
+const RSVP_KEY = "rsvp_boda_v2";
+const leer = () => { try { return JSON.parse(localStorage.getItem(RSVP_KEY) || "[]"); } catch (_) { return []; } };
+const guardar = (r) => { try { localStorage.setItem(RSVP_KEY, JSON.stringify(r)); } catch (_) {} };
+
+/* =====================================================================
+   MODAL
+   ===================================================================== */
+const scrim = document.getElementById("scrim");
+const thanks = document.getElementById("thanks");
+let posPrevia = 0;
+
+function abrirRsvp() {
+  posPrevia = window.scrollY;
+  scrim.classList.add("open");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => document.getElementById("nombre").focus({ preventScroll: true }), 360);
+}
+function cerrarRsvp() {
+  scrim.classList.remove("open");
+  document.body.style.overflow = "";
+  document.getElementById("err").textContent = "";
+}
+document.querySelectorAll("[data-rsvp]").forEach((b) => b.addEventListener("click", abrirRsvp));
+document.querySelectorAll("[data-close-rsvp]").forEach((b) => b.addEventListener("click", cerrarRsvp));
+scrim.addEventListener("click", (e) => { if (e.target === scrim) cerrarRsvp(); });
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && scrim.classList.contains("open")) cerrarRsvp();
+});
+
+let n = 0;
+const countEl = document.getElementById("count");
+const tope = (v) => Math.min(8, Math.max(0, v));
+document.getElementById("plus").addEventListener("click", () => { n = tope(n + 1); countEl.textContent = n; });
+document.getElementById("minus").addEventListener("click", () => { n = tope(n - 1); countEl.textContent = n; });
+
+document.getElementById("rsvpForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const nombre = document.getElementById("nombre").value.trim();
+  const err = document.getElementById("err");
+  if (nombre.length < 2) {
+    err.textContent = "Escribe tu nombre para continuar";
+    document.getElementById("nombre").focus();
+    return;
+  }
+  err.textContent = "";
+
+  const asistencia = document.getElementById("asiste").value;
+  const registro = {
+    nombre,
+    asistencia,
+    acompanantes: asistencia === "No" ? 0 : n,
+    fecha: new Date().toLocaleString("es-MX")
+  };
+  const todos = leer();
+  todos.push(registro);
+  guardar(todos);
+
+  cerrarRsvp();
+  document.getElementById("thanksText").textContent =
+    asistencia === "No"
+      ? "Lamentamos que no puedas acompañarnos. Gracias por avisarnos."
+      : `Gracias, ${nombre.split(" ")[0]}. Quedaste registrado con ${registro.acompanantes} acompañante${registro.acompanantes === 1 ? "" : "s"}.`;
+  thanks.classList.add("open");
+});
+
+document.querySelector("[data-close-thanks]").addEventListener("click", () => {
+  thanks.classList.remove("open");
+  document.getElementById("rsvpForm").reset();
+  n = 0; countEl.textContent = "0";
+  window.scrollTo({ top: posPrevia, behavior: "smooth" });
+});
+
+/* =====================================================================
+   SOBRE · retirarlo al pulsar Abrir
+   ===================================================================== */
+(function () {
+  var sobre = document.getElementById("sobre");
+  var boton = document.getElementById("abrirSobre");
+  var capa = document.getElementById("estrellas");
+  if (!sobre || !boton) return;
+
+  /* --- fijar el cuerpo: sin scroll posible mientras el sobre está --- */
+  var scrollPrevio = 0;
+  function fijarCuerpo() {
+    scrollPrevio = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = "fixed";
+    document.body.style.top = "-" + scrollPrevio + "px";
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.width = "100%";
+  }
+  function liberarCuerpo() {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    document.body.style.width = "";
+    window.scrollTo(0, 0);
+  }
+
+  var hojaInicial = document.querySelector(".sheet");
+  if (hojaInicial) hojaInicial.classList.remove("visible");
+
+  fijarCuerpo();
+  window.scrollTo(0, 0);
+
+  /* --- abrir --- */
+  var abierto = false;
+  function abrir() {
+    if (abierto) return;
+    abierto = true;
+
+    /* 1 · liberar el cuerpo primero */
+    liberarCuerpo();
+
+    /* 2 · mostrar la invitación: ya ocupa su altura real */
+    var hoja = document.querySelector(".sheet");
+    if (hoja) hoja.classList.add("visible");
+
+    /* 3 · revelar todo el contenido */
+    document.querySelectorAll(".reveal").forEach(function (n) {
+      n.classList.add("in");
+    });
+
+    /* 4 · subir al inicio tras el primer cuadro pintado */
+    requestAnimationFrame(function () {
+      window.scrollTo(0, 0);
+
+      /* 5 · retirar el sobre */
+      sobre.classList.add("abierto");
+      if (capa) capa.style.display = "none";
+
+      /* 6 · insistir en la posición mientras dura la transición */
+      var intentos = [30, 80, 160, 320, 600, 900];
+      intentos.forEach(function (ms) {
+        setTimeout(function () { window.scrollTo(0, 0); }, ms);
+      });
+
+      setTimeout(function () {
+        sobre.setAttribute("aria-hidden", "true");
+        sobre.style.display = "none";
+        window.scrollTo(0, 0);
+      }, 950);
+    });
+  }
+
+  boton.addEventListener("click", abrir);
+  sobre.addEventListener("click", function (e) {
+    if (e.target === sobre || (e.target.classList && e.target.classList.contains("sobre-pie"))) abrir();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && !abierto) abrir();
+  });
+
+  /* --- las flores --- */
+  if (capa) {
+    function flor(tam) {
+      var s = tam, petalos = "";
+      for (var k = 0; k < 5; k++) {
+        petalos += '<ellipse cx="12" cy="6.5" rx="4.1" ry="6.2" transform="rotate(' + (k * 72) + ' 12 12)"/>';
+      }
+      return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24">' +
+        '<g fill="currentColor">' + petalos + '</g>' +
+        '<circle cx="12" cy="12" r="2.6" fill="#fff"/></svg>';
+    }
+    var salida = "";
+    for (var i = 0; i < 34; i++) {
+      var tam = (7 + Math.random() * 11).toFixed(1);
+      var x = (Math.random() * 104 - 2).toFixed(2);
+      var dur = (7 + Math.random() * 9).toFixed(2);
+      var del = (Math.random() * 12).toFixed(2);
+      var op = (0.3 + Math.random() * 0.6).toFixed(2);
+      salida += '<i style="left:' + x + '%;opacity:' + op +
+        ';animation-duration:' + dur + 's;animation-delay:' + del + 's">' + flor(tam) + "</i>";
+    }
+    capa.innerHTML = salida;
+  }
+})();
+
+/* =====================================================================
+   ESTRELLAS CAYENDO · se generan al cargar el sobre
+   ===================================================================== */
+(function () {
+  const capa = document.getElementById("estrellas");
+  if (!capa) return;
+
+  /* flor de cinco pétalos con centro */
+  function flor(tam) {
+    const s = tam;
+    let petalos = "";
+    for (let k = 0; k < 5; k++) {
+      const a = k * 72;
+      petalos += '<ellipse cx="12" cy="6.5" rx="4.1" ry="6.2" ' +
+        'transform="rotate(' + a + ' 12 12)"/>';
+    }
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24">' +
+      '<g fill="currentColor">' + petalos + '</g>' +
+      '<circle cx="12" cy="12" r="2.6" fill="#fff"/>' +
+      '</svg>';
+  }
+
+  const total = 34;
+  let html = "";
+  for (let i = 0; i < total; i++) {
+    const tam = (7 + Math.random() * 11).toFixed(1);
+    const x = (Math.random() * 104 - 2).toFixed(2);
+    const dur = (7 + Math.random() * 9).toFixed(2);
+    const delay = (Math.random() * 12).toFixed(2);
+    const op = (0.3 + Math.random() * 0.6).toFixed(2);
+    html += '<i style="left:' + x + '%;opacity:' + op +
+      ';animation-duration:' + dur + 's;animation-delay:' + delay + 's">' +
+      flor(tam) + "</i>";
+  }
+  capa.innerHTML = html;
+
+  /* al abrir el sobre, se detienen */
+  const boton = document.getElementById("abrirSobre");
+  const sobre = document.getElementById("sobre");
+  if (boton && sobre) {
+    boton.addEventListener("click", function () {
+      capa.style.display = "none";
+    });
+  }
+})();
+
+</script>
+
+</body>
+</html>
