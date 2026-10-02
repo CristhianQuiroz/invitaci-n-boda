@@ -84,7 +84,7 @@ button{font-family:inherit;cursor:pointer;border:0;background:none}
 
 /* ---------- LIENZO · columna central de la invitación en escritorio. ---------- */
 .sheet{
-  position:relative;width:100%;max-width:560px;margin:0 auto;
+  position:relative;width:100%;max-width:396px;margin:0 auto;
   background:var(--white);overflow:hidden;isolation:isolate;
 }
 /* la invitación arranca oculta: primero se ve el sobre */
@@ -98,7 +98,7 @@ body.con-sobre{overflow:hidden;height:100vh}
   opacity:.5;mix-blend-mode:multiply;
   box-shadow:0 30px 90px rgba(16,26,74,.16);
 }
-@media (min-width:580px){
+@media (min-width:470px){
   body{padding:34px 0;align-items:flex-start}
   .sheet{border-radius:4px}
 }
@@ -154,12 +154,12 @@ p{margin:0 0 14px}
 
 .std{
   font-family:var(--display);font-style:italic;font-weight:300;
-  font-size:clamp(30px,5vw,38px);line-height:1.15;letter-spacing:-.02em;
+  font-size:clamp(21px,3.6vw,27px);line-height:1.15;letter-spacing:-.02em;
   color:var(--ink);margin:0;text-align:center;
 }
 .std-line{width:70px;height:1px;background:var(--rey-300);margin:14px auto 0}
 .std-label{
-  font-family:var(--sans);font-size:clamp(9px,1.6vw,11px);font-weight:400;
+  font-family:var(--sans);font-size:clamp(6.5px,1.1vw,8px);font-weight:400;
   letter-spacing:.5em;text-transform:uppercase;color:var(--rey);
   margin:16px 0 0;padding-left:.5em;text-align:center;
 }
@@ -180,14 +180,14 @@ p{margin:0 0 14px}
 
 .mono-cm{
   position:relative;font-family:var(--display);font-weight:400;
-  font-size:44px;line-height:1;letter-spacing:-.02em;color:var(--ink);
+  font-size:31px;line-height:1;letter-spacing:-.02em;color:var(--ink);
   display:inline-flex;align-items:center;text-align:center;
 }
 .mono-cm i{font-style:italic;font-weight:300;font-size:.72em;color:var(--rey);padding:0 3px}
 
 .couple{
   font-family:var(--serif);font-style:italic;font-weight:400;
-  font-size:clamp(24px,5.4vw,34px);line-height:1.25;
+  font-size:clamp(17px,3.8vw,23px);line-height:1.25;
   color:var(--ink);margin:0;text-align:center;
 }
 .date-band{
@@ -195,11 +195,11 @@ p{margin:0 0 14px}
   margin:22px auto 0;max-width:280px;padding:12px 0;text-align:center;
 }
 .date-band span{
-  font-family:var(--serif);font-size:clamp(16px,3vw,20px);letter-spacing:.18em;
+  font-family:var(--serif);font-size:clamp(12.5px,2.3vw,15px);letter-spacing:.18em;
   color:var(--ink);font-variant-numeric:tabular-nums;
 }
 .std-note{
-  font-family:var(--sans);font-size:clamp(8px,1.4vw,10px);letter-spacing:.36em;
+  font-family:var(--sans);font-size:clamp(6.5px,1.1vw,8px);letter-spacing:.36em;
   text-transform:uppercase;color:var(--ink-4);
   margin:16px 0 0;text-align:center;
 }
@@ -207,7 +207,7 @@ p{margin:0 0 14px}
    SECCIONES
    ===================================================================== */
 /* ---------- SECCIONES · cuerpo de la invitación. ---------- */
-section{position:relative;padding:76px 32px;text-align:center}
+section{position:relative;padding:44px 20px;text-align:center}
 section.plain{background:var(--white)}
 section.mist{background:var(--mist)}
 section.deep{background:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%);color:#fff}
@@ -221,10 +221,10 @@ section.deep{background:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%);color:#f
 }
 .block-title{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(31px,9.6vw,41px);letter-spacing:-.032em;line-height:1.04;
+  font-size:clamp(22px,6.8vw,29px);letter-spacing:-.032em;line-height:1.04;
   color:var(--ink);margin:0;
 }
-.lead{font-family:var(--serif);font-size:18.5px;line-height:1.78;color:var(--ink-2)}
+.lead{font-family:var(--serif);font-size:14.5px;line-height:1.78;color:var(--ink-2)}
 
 .sym{
   display:flex;align-items:center;justify-content:center;gap:10px;
@@ -254,7 +254,7 @@ section.deep .sym i{background:#fff}
 }
 .countdown b{
   display:block;font-family:var(--display);font-weight:300;
-  font-size:clamp(27px,8.6vw,36px);color:#fff;line-height:1;
+  font-size:clamp(19px,6.2vw,26px);color:#fff;line-height:1;
   font-variant-numeric:tabular-nums;letter-spacing:-.03em;
 }
 .countdown span{
@@ -278,7 +278,7 @@ section.deep .sym i{background:#fff}
   padding-top:2px;
 }
 .agenda h3{
-  font-family:var(--display);font-size:20px;font-weight:400;
+  font-family:var(--display);font-size:18px;font-weight:400;
   letter-spacing:-.012em;margin:0 0 6px;color:var(--ink);
 }
 .agenda p{font-size:13.5px;color:var(--ink-2);margin:0}
@@ -290,7 +290,7 @@ section.deep .sym i{background:#fff}
 .note{
   margin-top:30px;padding:24px 22px;border:1px solid var(--rey-100);
   background:var(--rey-050);
-  font-family:var(--serif);font-size:15.5px;line-height:1.72;color:var(--ink-2);
+  font-family:var(--serif);font-size:14px;line-height:1.72;color:var(--ink-2);
 }
 .note b{font-weight:600;color:var(--rey)}
 
@@ -308,7 +308,7 @@ section.deep .sym i{background:#fff}
 .place .sketch .pulse{fill:none;stroke:var(--rey);stroke-width:1.1}
 .place .info{padding:22px 20px;border-top:1px solid var(--line)}
 .place .info h3{
-  font-family:var(--display);font-size:21px;font-weight:400;
+  font-family:var(--display);font-size:18px;font-weight:400;
   letter-spacing:-.015em;margin:0 0 8px;color:var(--ink);
 }
 .place .info p{font-size:13.5px;color:var(--ink-2);margin:0}
@@ -426,7 +426,7 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 .scrim.open .panel{transform:translateY(0)}
 .grab{width:44px;height:3px;background:var(--line-2);margin:8px auto 22px}
 .panel h2{
-  font-family:var(--display);font-size:26px;font-weight:400;letter-spacing:-.025em;
+  font-family:var(--display);font-size:17px;font-weight:400;letter-spacing:-.025em;
   margin:0 0 6px;color:var(--ink);text-align:center;
 }
 .panel .sub{
@@ -439,7 +439,7 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
   color:var(--ink-4);margin:0 0 8px;
 }
 .field input,.field select{
-  width:100%;font-family:var(--serif);font-size:16.5px;color:var(--ink);
+  width:100%;font-family:var(--serif);font-size:15px;color:var(--ink);
   background:transparent;border:0;border-bottom:1px solid var(--line-2);
   border-radius:0;padding:8px 0;outline:none;
   -webkit-appearance:none;appearance:none;transition:border-color .3s var(--ease);
@@ -462,7 +462,7 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 }
 .stepper button:hover{border-color:var(--rey);background:var(--rey-050)}
 .stepper span{
-  font-family:var(--display);font-size:19px;line-height:1;
+  font-family:var(--display);font-size:17px;line-height:1;
   font-variant-numeric:tabular-nums;color:var(--ink);
 }
 .err{font-size:11px;color:#c02b3a;margin:0 0 12px;min-height:14px;text-align:center}
@@ -484,7 +484,7 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 }
 .thanks.open{opacity:1;visibility:visible}
 .thanks .figure{max-width:240px;margin-bottom:22px}
-.thanks .sign{font-family:var(--display);font-style:italic;font-size:40px}
+.thanks .sign{font-family:var(--display);font-style:italic;font-size:25px}
 .thanks p{color:rgba(255,255,255,.82);font-family:var(--serif);font-size:15px;max-width:310px;margin:10px 0 0}
 .thanks .btn{width:auto;min-width:240px;margin-top:26px}
 
@@ -533,12 +533,12 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 
 
 .corona-wrap{
-  position:relative;width:clamp(168px,28vw,206px);height:clamp(186px,31vw,228px);
+  position:relative;width:clamp(146px,24vw,180px);height:clamp(162px,27vw,198px);
   display:flex;align-items:center;justify-content:center;margin:0 auto;
 }
 .mono-cm{
   position:relative;font-family:var(--display);font-weight:400;
-  font-size:clamp(46px,8vw,62px);line-height:1;letter-spacing:-.02em;color:var(--ink);
+  font-size:clamp(32px,5.8vw,44px);line-height:1;letter-spacing:-.02em;color:var(--ink);
   display:inline-flex;align-items:center;gap:2px;
 }
 .mono-cm i{font-style:italic;font-weight:300;font-size:.72em;color:var(--rey);padding:0 3px}
@@ -645,10 +645,10 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 .sobre-texto{position:relative;z-index:3}
 .sobre-nombre,.sobre-nombre2{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(30px,9vw,38px);line-height:1.16;
+  font-size:clamp(21px,6.4vw,27px);line-height:1.16;
   letter-spacing:-.02em;color:var(--ink);margin:0;
 }
-.sobre-y{font-family:var(--display);font-style:italic;font-size:19px;color:var(--rey);margin:5px 0;line-height:1}
+.sobre-y{font-family:var(--display);font-style:italic;font-size:17px;color:var(--rey);margin:5px 0;line-height:1}
 .sobre-filete{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;max-width:124px;margin:16px auto}
 .sobre-filete::before,.sobre-filete::after{content:"";height:1px;flex:1;background:rgba(16,26,74,.22)}
 .sobre-filete i{width:5px;height:5px;background:var(--rey);transform:rotate(45deg);display:block}
@@ -838,7 +838,7 @@ section.ubicacion .place .sketch{
 }
 section.ubicacion .place .info{background:#fff;border-top:0}
 section.ubicacion .place .info h3{
-  color:var(--ink);font-size:23px;font-weight:500;
+  color:var(--ink);font-size:18px;font-weight:500;
 }
 section.ubicacion .place .info p{color:var(--ink-2);font-size:14px;line-height:1.6}
 section.ubicacion .place .info .cp{
@@ -901,7 +901,7 @@ footer .anillos-pie .aro-der .brillo{stroke:rgba(255,255,255,1)}
    venas, botones florales y bayas. Dos ramas por composición.
    ===================================================================== */
 .rama-wrap{display:flex;justify-content:center;margin:20px auto 0}
-.rama-fina{display:block;width:100%;max-width:232px;margin:0 auto}
+.rama-fina{display:block;width:100%;max-width:200px;margin:0 auto}
 .rama-fina path,.rama-fina circle{
   fill:none;stroke:var(--rey);stroke-linecap:round;stroke-linejoin:round;
 }
@@ -955,7 +955,7 @@ section.confirmacion-sec .lead{color:rgba(255,255,255,.92)}
    ===================================================================== */
 section.confirmacion-sec .esquinas{overflow:hidden}
 section.confirmacion-sec .esq{
-  position:absolute;top:-5px;left:-8px;width:118px;height:118px;opacity:1;
+  position:absolute;top:-3px;left:-6px;width:90px;height:90px;opacity:1;
 }
 section.confirmacion-sec .esq-der{left:auto;right:-8px;top:-5px;transform:scaleX(-1)}
 section.confirmacion-sec .esq path,
@@ -1024,6 +1024,20 @@ section.confirmacion-sec .lead{
 /* los anillos y el botón */
 section.confirmacion-sec .anillos{margin:0 auto 22px}
 section.confirmacion-sec [data-rsvp]{margin:0 auto}
+
+/* =====================================================================
+   GALERÍA · si una foto no carga, su marco lo avisa en vez de quedar vacío
+   ===================================================================== */
+.gallery figure[data-estado="falta"]{
+  background:repeating-linear-gradient(45deg,#eef1f8 0 10px,#e3e8f4 10px 20px);
+  min-height:150px;
+}
+.gallery figure[data-estado="falta"]::after{
+  content:"Falta esta foto en la carpeta «fotos»";
+  display:block;padding:24px 12px;text-align:center;
+  font-family:var(--sans);font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--rey);
+}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -1772,9 +1786,9 @@ section.confirmacion-sec [data-rsvp]{margin:0 auto}
     </svg></div>
 
 <div class="gallery">
-        <figure class="reveal" data-anim="scale" data-delay="2"><img id="g1" src="fotos/nosotros.jpg" alt="Recuerdo"></figure>
-        <figure class="reveal" data-anim="scale" data-delay="3"><img id="g2" src="fotos/la-fiesta.jpg" alt="Recuerdo"></figure>
-        <figure class="reveal" data-anim="scale" data-delay="4"><img id="g3" src="fotos/siempre.jpg" alt="Recuerdo"></figure>
+        <figure class="reveal" data-anim="scale" data-delay="2"><img id="g1" src="fotos/nosotros.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
+        <figure class="reveal" data-anim="scale" data-delay="3"><img id="g2" src="fotos/la-fiesta.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
+        <figure class="reveal" data-anim="scale" data-delay="4"><img id="g3" src="fotos/siempre.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
       </div>
     </div>
   </section>
@@ -2165,15 +2179,24 @@ document.addEventListener("DOMContentLoaded", () => {
      Si falta un archivo, su marco se oculta en vez de quedar vacío.
      ------------------------------------------------------------------ */
   /* fotografías */
-  const poner = (id, src) => {
+  /* Las rutas ya vienen puestas en el HTML: aquí solo se comprueba
+     que cada foto haya cargado. Si no cargó, el marco se marca para
+     que se vea cuál falta, en vez de quedar un hueco vacío. */
+  ["g1", "g2", "g3"].forEach((id) => {
     const el = document.getElementById(id);
     if (!el) return;
-    if (src) { el.src = src; }
-    else { el.closest("figure").style.display = "none"; }
-  };
-  poner("g1", FOTOS.g1);
-  poner("g2", FOTOS.g2);
-  poner("g3", FOTOS.g3);
+    const figura = el.closest("figure");
+    const listo = () => { el.dataset.estado = "ok"; };
+    const fallo = () => {
+      el.dataset.estado = "falta";
+      if (figura) figura.dataset.estado = "falta";
+    };
+    if (el.complete && el.naturalWidth > 0) { listo(); }
+    else {
+      el.addEventListener("load", listo, { once: true });
+      el.addEventListener("error", fallo, { once: true });
+    }
+  });
 
   /* trazo progresivo del disco y las figuras */
   document.querySelectorAll("[data-scene] path, [data-scene] circle, [data-scene] line")
