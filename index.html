@@ -4408,6 +4408,84 @@ html.js-listo .escena .actos > li:nth-child(8){transition-delay:1.04s}
 }
 .lista-acompanantes input:focus{border-bottom-color:var(--rey)}
 .lista-acompanantes input::placeholder{color:var(--ink-4);font-style:italic}
+
+/* =====================================================================
+   BOTÓN "REGISTRAR ASISTENCIA" · con cuerpo y definición
+   Antes era un bloque blanco plano que se fundía con el azul del panel.
+   Ahora lleva sombra propia, halo suave, filo de luz interior y una
+   respuesta clara al tocar.
+   ===================================================================== */
+.confirmacion-sec .btn-white{
+  position:relative;
+  background:#fff;
+  color:var(--rey);
+  border:1px solid rgba(255,255,255,.9);
+  border-radius:999px;
+  font-weight:500;
+  letter-spacing:.2em;
+  padding:20px 30px;
+  box-shadow:
+    0 14px 34px rgba(6,12,44,.42),
+    0 3px 0 rgba(255,255,255,.55) inset,
+    0 0 0 1px rgba(255,255,255,.28);
+  transition:transform .28s cubic-bezier(.22,.68,.16,1),
+             box-shadow .28s cubic-bezier(.22,.68,.16,1),
+             background .28s var(--ease),
+             color .28s var(--ease);
+  animation:none;
+}
+
+/* el halo, más marcado, sin lavar el texto */
+.confirmacion-sec .btn-white::after{
+  content:"";
+  position:absolute;
+  inset:-10px;
+  border-radius:999px;
+  background:radial-gradient(ellipse at center,rgba(255,255,255,.30),rgba(255,255,255,0) 70%);
+  pointer-events:none;
+  z-index:-1;
+  opacity:.9;
+  transition:opacity .3s var(--ease);
+}
+
+.confirmacion-sec .btn-white:hover{
+  background:#fff;
+  color:var(--rey);
+  transform:translateY(-2px);
+  box-shadow:
+    0 20px 44px rgba(6,12,44,.5),
+    0 3px 0 rgba(255,255,255,.6) inset,
+    0 0 0 1px rgba(255,255,255,.4);
+}
+.confirmacion-sec .btn-white:hover::after{opacity:1}
+
+.confirmacion-sec .btn-white:active{
+  transform:translateY(0);
+  box-shadow:
+    0 8px 20px rgba(6,12,44,.4),
+    0 2px 0 rgba(255,255,255,.45) inset;
+}
+
+/* el icono de la palomita, con su propio peso */
+.confirmacion-sec .btn-white svg{
+  width:16px;height:16px;
+  fill:none;stroke:currentColor;stroke-width:2.2;
+  stroke-linecap:round;stroke-linejoin:round;
+  flex:none;
+}
+
+/* el mismo trato para el botón de la barra flotante del móvil */
+.floating .btn-white,
+.floating .btn-royal{
+  border-radius:999px;
+  box-shadow:0 12px 28px rgba(6,12,44,.4);
+  font-weight:500;
+}
+
+@media (prefers-reduced-motion:reduce){
+  .confirmacion-sec .btn-white{transition:none;animation:none}
+  .confirmacion-sec .btn-white:hover{transform:none}
+}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
