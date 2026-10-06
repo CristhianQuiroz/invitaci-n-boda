@@ -4,7 +4,7 @@
   INVITACIÓN DE BODA DIGITAL · Cristhian & Mayrane
   ----------------------------------------------------------------------------
   Fecha del evento: 28 de noviembre de 2026
-  Lugar: Tierra y Libertad, Cuautitlán, Estado de México
+  Lugar: VAQUERO LOKO, Cuautitlán Izcalli, Estado de México
   ----------------------------------------------------------------------------
   ESTRUCTURA DEL ARCHIVO
     1. <head>   · metadatos, tipografías de Google y hoja de estilos
@@ -482,7 +482,6 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
     transition-duration:.001ms!important}
-  .reveal,.opening-inner > *{opacity:1!important;transform:none!important}
   .figure .trace{stroke-dashoffset:0!important}
 }
 
@@ -1794,6 +1793,67 @@ section.deep ::selection{background:rgba(255,255,255,.28);color:#fff}
 @media (prefers-reduced-motion:reduce){
   .reveal,.reveal[data-anim]{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
 }
+
+/* =====================================================================
+   UBICACIÓN · los dos botones de navegación
+   Google Maps y Waze, uno al lado del otro. En pantallas muy estrechas
+   se apilan solos.
+   ===================================================================== */
+.acciones-ubicacion{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:22px;
+}
+.acciones-ubicacion .btn{
+  width:100%;
+  padding:17px 12px;
+  font-size:10px;
+  letter-spacing:.22em;
+  gap:8px;
+}
+.acciones-ubicacion .btn svg{width:15px;height:15px;flex:none}
+
+
+
+@media (max-width:359px){
+  .acciones-ubicacion{grid-template-columns:1fr}
+  .acciones-ubicacion .btn{padding:16px 14px}
+}
+
+/* =====================================================================
+   UBICACIÓN · los dos botones, legibles sobre el azul
+   Van en blanco con texto azul: es el mayor contraste posible sobre el
+   panel azul, y el mismo estilo que ya tenía la sección.
+   ===================================================================== */
+section.ubicacion .acciones-ubicacion .btn{
+  background:#fff;
+  color:var(--rey);
+  border:1px solid #fff;
+  font-weight:500;
+  box-shadow:0 14px 34px rgba(6,10,32,.42);
+}
+section.ubicacion .acciones-ubicacion .btn svg{
+  stroke:var(--rey);
+  fill:none;
+  stroke-width:1.9;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+section.ubicacion .acciones-ubicacion .btn:hover{
+  background:var(--rey);
+  color:#fff;
+  border-color:var(--rey);
+}
+section.ubicacion .acciones-ubicacion .btn:hover svg{stroke:#fff}
+
+/* un poco más de cuerpo al texto, que a 10 px se leía apretado */
+.acciones-ubicacion .btn{
+  padding:17px 12px;
+  font-size:10.5px;
+  letter-spacing:.18em;
+  gap:9px;
+}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -1861,7 +1921,7 @@ section.deep ::selection{background:rgba(255,255,255,.28);color:#fff}
 
         <p class="couple">Cristhian &amp; Mayrane</p>
         <div class="date-band"><span>28 · 11 · 2026</span></div>
-        <p class="std-note">Tierra y Libertad · Cuautitlán</p>
+        <p class="std-note">VAQUERO LOKO · Cuautitlán Izcalli</p>
       </div>
     </div>
   </header>
@@ -2422,17 +2482,24 @@ section.deep ::selection{background:rgba(255,255,255,.28);color:#fff}
           </svg>
         </div>
         <div class="info">
-          <h3>Tierra y Libertad</h3>
-          <p>Manzana 010, Lázaro Cárdenas<br/>54870 Cuautitlán, Estado de México</p>
+          <h3>VAQUERO LOKO</h3>
+          <p>Cuautitlán Izcalli, Estado de México<br/>19.6733, -99.1706</p>
           <span class="cp">Salón de eventos · estacionamiento en la calle</span>
         </div>
       </div>
 
-      <a class="btn btn-line reveal" data-anim="up" data-delay="4"
-         href="https://maps.app.goo.gl/wtcmbto28mKofCxq6" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-        Abrir en Google Maps
-      </a>
+      <div class="acciones-ubicacion">
+        <a class="btn btn-line reveal" data-anim="up" data-delay="4"
+           href="https://www.google.com.mx/maps/place/VAQUERO+LOKO/@19.6733016,-99.1731615,17z/data=!3m1!4b1!4m6!3m5!1s0x85d1f573803c11a7:0xc77de6ae9ce3f9e4!8m2!3d19.6733016!4d-99.1705866!16s%2Fg%2F11b8_ngw81?entry=ttu&g_ep=EgoyMDI2MDkzMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          Google Maps
+        </a>
+        <a class="btn btn-line reveal" data-anim="up" data-delay="5"
+           href="https://waze.com/ul?ll=19.6733016,-99.1705866&navigate=yes&q=VAQUERO%20LOKO" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M12 3.4a8.6 8.6 0 0 0-8.6 8.6c0 2.3.9 4.3 2.3 5.9l-.7 3 3-.8a8.6 8.6 0 0 0 4 1 8.6 8.6 0 0 0 8.6-8.6A8.6 8.6 0 0 0 12 3.4z"/><circle cx="9" cy="11" r="1.1"/><circle cx="15" cy="11" r="1.1"/><path d="M9 15c.8.9 1.8 1.3 3 1.3s2.2-.4 3-1.3"/></svg>
+          Waze
+        </a>
+      </div>
     </div>
   </section>
 
@@ -2978,44 +3045,72 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   tic(); setInterval(tic, 1000);
 
+  
+  
   /* ------------------------------------------------------------------
-     APARICIÓN AL BAJAR · todo entra cuando asoma a la pantalla.
-     Se marcan solos los bloques que aún no lo estaban, así ninguna
-     sección se queda sin su animación.
+     APARICION AL BAJAR · toda la pagina entra al asomar
+     Se marcan los bloques visuales de cada seccion: titulos, parrafos,
+     listas y sus elementos, fichas, botones y fotos. Se respeta el
+     data-anim que ya traiga cada bloque.
      ------------------------------------------------------------------ */
-  const raizAnim = document.querySelector(".sheet");
-  if (raizAnim) {
-    /* las secciones, uno por uno */
-    document.querySelectorAll("section, header").forEach(function (sec) {
-      if (sec.classList.contains("reveal") || sec.closest(".carrusel")) return;
-      const hijos = Array.from(sec.querySelectorAll(":scope .section-body > *"));
-      hijos.forEach(function (h, k) {
-        if (h.classList.contains("reveal")) return;
-        if (h.tagName === "UL") {
-          h.classList.add("reveal");
-          h.dataset.anim = "up";
-          h.dataset.delay = String(Math.min(9, k + 1));
-          Array.from(h.children).forEach(function (li, j) {
-            li.classList.add("reveal");
-            li.dataset.anim = "left";
-            li.dataset.delay = String(Math.min(9, j + 1));
-          });
-          return;
-        }
-        h.classList.add("reveal");
-        h.dataset.anim = h.dataset.anim || "up";
-        h.dataset.delay = String(Math.min(9, k + 1));
+  (function marcarApariciones() {
+    const yaMarcado = new Set();
+
+    function animar(el, tipo, retardo) {
+      if (!el || yaMarcado.has(el)) return;
+      if (el.closest(".carrusel")) return;          /* el carrusel va por su cuenta */
+      if (el.classList.contains("reveal")) {
+        yaMarcado.add(el);
+        return;
+      }
+      el.classList.add("reveal");
+      if (!el.dataset.anim) el.dataset.anim = tipo || "up";
+      if (retardo) el.dataset.delay = String(Math.min(9, retardo));
+      yaMarcado.add(el);
+    }
+
+    /* todo bloque visual dentro de la invitacion */
+    const SELECTOR = [
+      ".sec-head", ".sec-label", ".block-title",
+      ".rama-wrap", ".lead", ".note",
+      ".couple", ".date-band", ".std", ".std-label", ".std-note",
+      ".initials", ".countdown", ".programa", ".paso", ".actos",
+      ".place", ".sketch", ".info", ".acciones-ubicacion", ".btn",
+      ".gallery", ".carrusel", ".floating"
+    ].join(",");
+
+    document.querySelectorAll(".sheet " + SELECTOR).forEach(function (el) {
+      animar(el, "up");
+    });
+
+    /* los hijos de las listas, uno a uno */
+    document.querySelectorAll(".sheet ul, .sheet .actos").forEach(function (ul) {
+      Array.from(ul.children).forEach(function (li, i) {
+        animar(li, "left", i + 1);
       });
     });
-    /* el pie, con su propia entrada */
-    const pie = document.querySelector("footer");
-    if (pie && !pie.classList.contains("reveal")) {
-      pie.classList.add("reveal");
-      pie.dataset.anim = "fade";
-    }
-  }
 
-  const io = new IntersectionObserver((es) => {
+    /* los renglones del programa, en cascada */
+    document.querySelectorAll(".sheet .programa > .paso").forEach(function (el, i) {
+      el.dataset.anim = "up";
+      el.dataset.delay = String(Math.min(9, i + 1));
+    });
+
+    /* las tarjetas de la cuenta atras */
+    document.querySelectorAll(".sheet .countdown > div").forEach(function (el, i) {
+      animar(el, "scale", i + 1);
+    });
+
+    /* el pie, con su propio fundido */
+    animar(document.querySelector("footer"), "fade");
+
+    /* los titulos de seccion, un punto mas marcados */
+    document.querySelectorAll(".sheet .block-title").forEach(function (el) {
+      el.dataset.anim = "mask";
+    });
+  })();
+
+const io = new IntersectionObserver((es) => {
     es.forEach((e) => {
       if (e.isIntersecting) {
         e.target.classList.add("in");
@@ -3032,7 +3127,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const r = n.getBoundingClientRect();
       if (r.top < window.innerHeight * 0.92) n.classList.add("in");
     });
-  });
+});
 
   /* barra flotante */
   const flot = document.getElementById("floating");
