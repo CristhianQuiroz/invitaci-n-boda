@@ -48,7 +48,8 @@
 /* ---------- VARIABLES · paleta y tipografías. Cambia aquí los colores de toda la página. ---------- */
 :root{
   --white:#ffffff;
-  --paper:#fbfcff;
+  --paper:#faf6ee;
+  --bone:var(--paper);
   --mist:#f4f6fd;
   --ink:#101a4a;          /* azul noche, para texto */
   --ink-2:#3d4880;
@@ -141,6 +142,7 @@ p{margin:0 0 14px}
 .opening-card::before{
   content:"";position:absolute;inset:12px;
   border:1px solid rgba(36,64,200,.13);pointer-events:none;z-index:4;
+  border-radius:14px;
 }
 .opening-inner{position:relative;z-index:5;width:100%;margin:0 auto}
 .opening-inner > *{opacity:0;animation:cRise 1.1s var(--ease-out) forwards}
@@ -214,7 +216,7 @@ section{
 }
 section.plain{background:var(--white)}
 section.mist{background:var(--mist)}
-section.deep{background:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%);color:#fff}
+section.deep{background:transparent;color:#fff}
 .section-body{position:relative;z-index:3;max-width:none;margin:0 auto}
 
 .sec-head{position:relative;margin-bottom:30px}
@@ -263,32 +265,7 @@ section.deep .sym i{background:#fff}
 }
 .countdown span{
   display:block;margin-top:9px;font-size:7px;letter-spacing:.3em;
-  text-transform:uppercase;color:rgba(255,255,255,.7);
-}
-
-/* =====================================================================
-   ITINERARIO · fichas numeradas, sin línea de tiempo
-   ===================================================================== */
-.agenda{margin-top:26px;text-align:left}
-.agenda .item{
-  display:grid;grid-template-columns:56px 1fr;gap:0;
-  padding:24px 0;border-top:1px solid var(--line);
-  align-items:start;
-}
-.agenda .item:last-child{border-bottom:1px solid var(--line)}
-.agenda .hour{
-  font-family:var(--display);font-weight:300;font-size:18px;
-  letter-spacing:-.01em;color:var(--rey);font-variant-numeric:tabular-nums;
-  padding-top:2px;
-}
-.agenda h3{
-  font-family:var(--display);font-size:18px;font-weight:400;
-  letter-spacing:-.012em;margin:0 0 6px;color:var(--ink);
-}
-.agenda p{font-size:13.5px;color:var(--ink-2);margin:0}
-.agenda .where{
-  display:block;margin-top:8px;font-size:8.5px;letter-spacing:.24em;
-  text-transform:uppercase;color:var(--ink-4);
+  text-transform:uppercase;color:rgba(255,255,255,.8);
 }
 
 .note{
@@ -325,18 +302,18 @@ section.deep .sym i{background:#fff}
    GALERÍA · solo las fotos, sin marcos
    ===================================================================== */
 /* ---------- GALERÍA · tres fotografías de la pareja. ---------- */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:24px}
-.gallery figure{margin:0;position:relative;overflow:hidden;background:var(--mist);aspect-ratio:2/3}
-.gallery figure:nth-child(2){aspect-ratio:2/3.3}
+
+
+
 .gallery img{
   width:100%;height:100%;object-fit:cover;
   transition:transform 1.4s var(--ease-out);
   filter:contrast(1.05) saturate(1.12) brightness(1.05);
 }
-.gallery figure:nth-child(1) img{object-position:50% 24%}
-.gallery figure:nth-child(2) img{object-position:50% 30%}
-.gallery figure:nth-child(3) img{object-position:50% 38%}
-.gallery figure:hover img{transform:scale(1.05)}
+
+
+
+
 
 /* =====================================================================
    BOTONES
@@ -549,7 +526,6 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 .initials{display:block;margin:24px 0 26px;min-height:0}
 
 .sec-label{letter-spacing:.52em;margin:0 0 12px}
-.agenda .hour{border-left:2px solid var(--rey-300);padding-left:12px;font-size:17px;line-height:1.12}
 
 .gallery{grid-template-columns:repeat(6,1fr)}
 .gallery figure:nth-child(1){grid-column:span 6;aspect-ratio:4/3}
@@ -566,12 +542,9 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 /* =====================================================================
    PROGRAMA DEL DÍA
    ===================================================================== */
-.programa{margin-top:30px;text-align:left}
-.paso{
-  display:grid;grid-template-columns:54px 1fr;gap:0;
-  padding:16px 0;border-top:1px solid var(--line);
-}
-.paso:last-child{border-bottom:1px solid var(--line)}
+
+
+
 .p-hora{
   font-family:var(--display);font-size:13px;font-weight:400;
   color:var(--rey);font-variant-numeric:tabular-nums;padding-top:1px;
@@ -609,8 +582,8 @@ footer .meta span + span{border-left:1px solid rgba(255,255,255,.3);padding-left
 }
 .sobre-carta{
   position:relative;z-index:2;width:100%;max-width:520px;margin:0 auto;
-  background:#fff;padding:56px 38px 50px;text-align:center;
-  box-shadow:0 30px 80px rgba(0,0,0,.42);
+  background:#faf6ee;padding:56px 38px 50px;text-align:center;border-radius:22px;
+  box-shadow:0 30px 80px rgba(6,10,32,.46),0 2px 0 rgba(255,255,255,.6) inset;
   animation:sobreEntra 1.3s cubic-bezier(.16,1,.3,1) both;
   transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s cubic-bezier(.16,1,.3,1);
 }
@@ -744,7 +717,6 @@ section.galeria{position:relative;z-index:30;background:transparent}
 .section-body{position:relative;z-index:30}
 section{position:relative;z-index:30}
 .place,.place .info,.place .sketch{position:relative;z-index:30}
-.note,.programa,.agenda,.countdown,.calendario,.contacto{position:relative;z-index:30}
 .place .info{background:#fff}
 .section-body .note{background:var(--rey-050)}
 .gallery figure{background:#fff}
@@ -799,7 +771,7 @@ section.mist,section.plain,section.galeria,section.ubicacion-clara{
 section.tint{background:transparent}
 
 /* --- secciones azules: azul con alfa, patrón visible a través --- */
-section.deep,section.deep.on-dark{background:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%);color:#fff}
+section.deep,section.deep.on-dark{background:transparent;color:#fff}
 
 /* el patrón sube de opacidad para que se perciba sobre el azul */
 .sheet::after{opacity:.65}
@@ -980,7 +952,7 @@ section.confirmacion-sec .esq .baya{fill:#fff;stroke:none}
 /* =====================================================================
    CONFIRMACIÓN · etiqueta · rama · título, todo centrado
    ===================================================================== */
-section.confirmacion-sec .section-body{text-align:center}
+
 
 
 
@@ -994,8 +966,8 @@ section.confirmacion-sec .block-title{
    CONFIRMACIÓN · ritmo vertical, sin amontonamiento
    etiqueta · rama · título · párrafo · anillos · botón
    ===================================================================== */
-section.confirmacion-sec{padding:34px 30px 56px}
-section.confirmacion-sec .section-body{text-align:center}
+
+
 
 /* etiqueta */
 section.confirmacion-sec .sec-head{
@@ -1100,6 +1072,727 @@ footer{
 @media (min-width:481px){
   .sheet{max-width:480px;margin:0 auto}
   section{padding:66px 38px}
+}
+
+/* =====================================================================
+   PORTADA DE INICIO · fondo de flores al 10%
+   La portada lleva su propio patrón, muy tenue, para que el texto
+   respire. El patrón general del lienzo se le retira para que no se
+   sumen las dos capas.
+   ===================================================================== */
+.opening{
+  position:relative;
+}
+.opening::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAiIGhlaWdodD0iMTYwIiB2aWV3Qm94PSIwIDAgMTYwIDE2MCI+CiAgPGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMjQ0MGM4IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMzAgMzApIHJvdGF0ZSgxMikgc2NhbGUoMSkiIG9wYWNpdHk9Ii4zNCI+CiAgPHBhdGggZD0iTTAgMGMtNC02LTMtMTMgMy0xNyA2IDQgNyAxMSAzIDE3eiIvPgogIDxwYXRoIGQ9Ik0wIDBjLTYtMi05LTgtNy0xNCA3LTEgMTIgMyAxMyAxMHoiLz4KICA8cGF0aCBkPSJNMCAwYzYtMiAxMC03IDktMTQtNy0yLTEzIDItMTQgOXoiLz4KICA8cGF0aCBkPSJNMCAwYy02IDMtOSA5LTcgMTUgNyAxIDEyLTMgMTMtMTB6Ii8+CiAgPHBhdGggZD0iTTAgMGM2IDMgMTAgOCA5IDE1LTcgMS0xMy0zLTE0LTEweiIvPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjYiLz4KICA8cGF0aCBkPSJNMCAtM3Y2TS0zIDBoNiIgc3Ryb2tlLXdpZHRoPSIuNyIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAgOTYpIHJvdGF0ZSgtMjUpIHNjYWxlKDAuODIpIiBvcGFjaXR5PSIuMjYiPgogIDxwYXRoIGQ9Ik0wIDBjLTQtNi0zLTEzIDMtMTcgNiA0IDcgMTEgMyAxN3oiLz4KICA8cGF0aCBkPSJNMCAwYy02LTItOS04LTctMTQgNy0xIDEyIDMgMTMgMTB6Ii8+CiAgPHBhdGggZD0iTTAgMGM2LTIgMTAtNyA5LTE0LTctMi0xMyAyLTE0IDl6Ii8+CiAgPHBhdGggZD0iTTAgMGMtNiAzLTkgOS03IDE1IDcgMSAxMi0zIDEzLTEweiIvPgogIDxwYXRoIGQ9Ik0wIDBjNiAzIDEwIDggOSAxNS03IDEtMTMtMy0xNC0xMHoiLz4KICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMi42Ii8+CiAgPHBhdGggZD0iTTAgLTN2Nk0tMyAwaDYiIHN0cm9rZS13aWR0aD0iLjciLz4KPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzYgMTM4KSByb3RhdGUoNDApIHNjYWxlKDAuNjgpIiBvcGFjaXR5PSIuMjIiPgogIDxwYXRoIGQ9Ik0wIDBjLTQtNi0zLTEzIDMtMTcgNiA0IDcgMTEgMyAxN3oiLz4KICA8cGF0aCBkPSJNMCAwYy02LTItOS04LTctMTQgNy0xIDEyIDMgMTMgMTB6Ii8+CiAgPHBhdGggZD0iTTAgMGM2LTIgMTAtNyA5LTE0LTctMi0xMyAyLTE0IDl6Ii8+CiAgPHBhdGggZD0iTTAgMGMtNiAzLTkgOS03IDE1IDcgMSAxMi0zIDEzLTEweiIvPgogIDxwYXRoIGQ9Ik0wIDBjNiAzIDEwIDggOSAxNS03IDEtMTMtMy0xNC0xMHoiLz4KICA8Y2lyY2xlIGN4PSIwIiBjeT0iMCIgcj0iMi42Ii8+CiAgPHBhdGggZD0iTTAgLTN2Nk0tMyAwaDYiIHN0cm9rZS13aWR0aD0iLjciLz4KPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjQgMjIpIHJvdGF0ZSgxNSkgc2NhbGUoMC45NSkiIG9wYWNpdHk9Ii4zIj4KICA8cGF0aCBkPSJNMCAwYzgtMyAxNi0xIDIxIDYtNiA2LTE0IDctMjEgMXoiLz4KICA8cGF0aCBkPSJNMCAwYzcgMSAxMyA0IDE4IDkiIHN0cm9rZS13aWR0aD0iLjciLz4KICA8cGF0aCBkPSJNNSAxYzIgMiAzIDMgNSA1TTEwIDJjMiAyIDMgMyA1IDUiIHN0cm9rZS13aWR0aD0iLjYiLz4KPC9nPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTggOTIpIHJvdGF0ZSgtNDApIHNjYWxlKDAuODUpIiBvcGFjaXR5PSIuMjYiPgogIDxwYXRoIGQ9Ik0wIDBjOC0zIDE2LTEgMjEgNi02IDYtMTQgNy0yMSAxeiIvPgogIDxwYXRoIGQ9Ik0wIDBjNyAxIDEzIDQgMTggOSIgc3Ryb2tlLXdpZHRoPSIuNyIvPgogIDxwYXRoIGQ9Ik01IDFjMiAyIDMgMyA1IDVNMTAgMmMyIDIgMyAzIDUgNSIgc3Ryb2tlLXdpZHRoPSIuNiIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjIgMzApIHJvdGF0ZSgxMzApIHNjYWxlKDAuNzUpIiBvcGFjaXR5PSIuMjQiPgogIDxwYXRoIGQ9Ik0wIDBjOC0zIDE2LTEgMjEgNi02IDYtMTQgNy0yMSAxeiIvPgogIDxwYXRoIGQ9Ik0wIDBjNyAxIDEzIDQgMTggOSIgc3Ryb2tlLXdpZHRoPSIuNyIvPgogIDxwYXRoIGQ9Ik01IDFjMiAyIDMgMyA1IDVNMTAgMmMyIDIgMyAzIDUgNSIgc3Ryb2tlLXdpZHRoPSIuNiIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5NiAxMTgpIHJvdGF0ZSgtMTUpIHNjYWxlKDAuOCkiIG9wYWNpdHk9Ii4yOCI+CiAgPHBhdGggZD0iTTAgMGM4LTMgMTYtMSAyMSA2LTYgNi0xNCA3LTIxIDF6Ii8+CiAgPHBhdGggZD0iTTAgMGM3IDEgMTMgNCAxOCA5IiBzdHJva2Utd2lkdGg9Ii43Ii8+CiAgPHBhdGggZD0iTTUgMWMyIDIgMyAzIDUgNU0xMCAyYzIgMiAzIDMgNSA1IiBzdHJva2Utd2lkdGg9Ii42Ii8+CjwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0NiAxOCkgcm90YXRlKDgpIHNjYWxlKDAuOSkiIG9wYWNpdHk9Ii4yOCI+CiAgPHBhdGggZD0iTTAgMjZDMiAxNiA1IDggMTAgMiIvPgogIDxwYXRoIGQ9Ik00IDIwYy00LTEtNy00LTgtOCA0IDAgNyAyIDkgNnoiLz4KICA8cGF0aCBkPSJNNyAxMmMtMy0zLTQtNy0yLTExIDMgMiA0IDYgMyAxMHoiLz4KICA8Y2lyY2xlIGN4PSIxMSIgY3k9IjEiIHI9IjIuMiIvPgogIDxjaXJjbGUgY3g9IjMiIGN5PSI3IiByPSIxLjYiLz4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjciIHI9IjEuNCIvPgo8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4IDE0MCkgcm90YXRlKC0yMCkgc2NhbGUoMC44KSIgb3BhY2l0eT0iLjI0Ij4KICA8cGF0aCBkPSJNMCAyNkMyIDE2IDUgOCAxMCAyIi8+CiAgPHBhdGggZD0iTTQgMjBjLTQtMS03LTQtOC04IDQgMCA3IDIgOSA2eiIvPgogIDxwYXRoIGQ9Ik03IDEyYy0zLTMtNC03LTItMTEgMyAyIDQgNiAzIDEweiIvPgogIDxjaXJjbGUgY3g9IjExIiBjeT0iMSIgcj0iMi4yIi8+CiAgPGNpcmNsZSBjeD0iMyIgY3k9IjciIHI9IjEuNiIvPgogIDxjaXJjbGUgY3g9IjE2IiBjeT0iNyIgcj0iMS40Ii8+CjwvZz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyIDk2KSByb3RhdGUoMzUpIHNjYWxlKDAuNykiIG9wYWNpdHk9Ii4yMiI+CiAgPHBhdGggZD0iTTAgMjZDMiAxNiA1IDggMTAgMiIvPgogIDxwYXRoIGQ9Ik00IDIwYy00LTEtNy00LTgtOCA0IDAgNyAyIDkgNnoiLz4KICA8cGF0aCBkPSJNNyAxMmMtMy0zLTQtNy0yLTExIDMgMiA0IDYgMyAxMHoiLz4KICA8Y2lyY2xlIGN4PSIxMSIgY3k9IjEiIHI9IjIuMiIvPgogIDxjaXJjbGUgY3g9IjMiIGN5PSI3IiByPSIxLjYiLz4KICA8Y2lyY2xlIGN4PSIxNiIgY3k9IjciIHI9IjEuNCIvPgo8L2c+CiAgICA8cGF0aCBkPSJNMzAgMzBDNDggNDQgNjIgNTggNzYgNzgiIHN0cm9rZS13aWR0aD0iLjgiIG9wYWNpdHk9Ii4yIi8+CiAgICA8cGF0aCBkPSJNMTIwIDk2QzEwNCAxMDYgODggMTE4IDc2IDEzOCIgc3Ryb2tlLXdpZHRoPSIuOCIgb3BhY2l0eT0iLjE4Ii8+CiAgICA8cGF0aCBkPSJNMTggOTJDMzYgOTYgNTIgOTggNjQgOTYiIHN0cm9rZS13aWR0aD0iLjciIG9wYWNpdHk9Ii4xNiIvPgogIDwvZz4KPC9zdmc+");
+  background-size:160px 160px;
+  opacity:.10;
+  mix-blend-mode:multiply;
+}
+
+/* la portada no lleva el patrón general: ya tiene el suyo al 10% */
+.opening .opening-card{position:relative;z-index:2}
+
+/* =====================================================================
+   SECCIONES AZULES · el color va en una tarjeta, no a todo el ancho
+   El azul ocupa el bloque central, con margen a los lados y esquinas
+   redondeadas, como un panel. El contenido va encima.
+   ===================================================================== */
+section.deep,section.deep.on-dark{
+  background:transparent!important;
+  padding-left:0;
+  padding-right:0;
+}
+
+section.deep::before,section.deep.on-dark::before{
+  content:"";
+  position:absolute;
+  top:26px;
+  bottom:26px;
+  left:clamp(14px,4.4vw,26px);
+  right:clamp(14px,4.4vw,26px);
+  z-index:0;
+  border-radius:22px;
+  background:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%);
+  box-shadow:0 22px 54px rgba(16,26,74,.22);
+  pointer-events:none;
+}
+
+/* el contenido, por encima de la tarjeta y con aire dentro */
+section.deep .section-body,section.deep.on-dark .section-body{
+  position:relative;
+  z-index:3;
+  padding-left:clamp(22px,6.4vw,40px);
+  padding-right:clamp(22px,6.4vw,40px);
+  padding-top:26px;
+  padding-bottom:26px;
+}
+
+/* las esquinas decorativas y los ornamentos, por encima */
+section.deep .esquinas,section.deep.on-dark .esquinas{z-index:4}
+
+/* =====================================================================
+   CONFIRMACIÓN · se queda como estaba: azul a todo el ancho
+   (las otras secciones azules llevan el panel redondeado)
+   ===================================================================== */
+section.confirmacion-sec::before{
+  content:none!important;
+  display:none!important;
+}
+
+
+
+/* =====================================================================
+   CONFIRMACIÓN · azul a todo el ancho, contenido centrado
+   (esta sección no lleva panel: se queda como estaba)
+   ===================================================================== */
+
+section.confirmacion-sec .section-body{
+  position:relative;
+  z-index:3;
+  text-align:center;
+  padding:0;
+  margin:0 auto;
+}
+section.confirmacion-sec .sec-head{
+  margin:0 auto;
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+section.confirmacion-sec .sec-label{
+  margin:0;
+  color:rgba(255,255,255,.85);
+  letter-spacing:.5em;
+}
+section.confirmacion-sec .rama-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:18px auto 22px;
+  width:100%;
+}
+section.confirmacion-sec .rama-fina{max-width:132px;opacity:.9}
+section.confirmacion-sec .block-title{
+  margin:0 auto;
+  text-align:center;
+  color:#fff;
+  text-shadow:0 2px 14px rgba(0,0,0,.25);
+  line-height:1.12;
+}
+section.confirmacion-sec .lead{
+  text-align:center;
+  color:rgba(255,255,255,.92);
+  max-width:340px;
+  margin:20px auto 0;
+  line-height:1.7;
+}
+section.confirmacion-sec .anillos{margin:26px auto 24px}
+section.confirmacion-sec [data-rsvp]{margin:0 auto}
+
+/* =====================================================================
+   CONFIRMACIÓN · azul a todo el ancho (por encima de la regla general)
+   La regla general de las secciones azules las deja transparentes para
+   el panel; esta la devuelve a azul pleno.
+   ===================================================================== */
+
+section.deep.on-dark.confirmacion-sec::before,
+section.confirmacion-sec::before{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+}
+
+/* =====================================================================
+   CONFIRMACIÓN · fondo azul a todo el ancho
+   Va la ÚLTIMA y con la máxima especificidad, porque la regla general
+   de las secciones azules las deja transparentes para el panel.
+   ===================================================================== */
+section.deep.on-dark.confirmacion-sec,
+section.deep.confirmacion-sec,
+section.confirmacion-sec{
+  background-color:#1d34a8!important;
+  background-image:linear-gradient(168deg,#1d34a8 0%,#2440c8 100%)!important;
+  padding:54px clamp(22px,5.6vw,32px) 58px!important;
+  text-align:center;
+}
+section.deep.on-dark.confirmacion-sec::before,
+section.deep.confirmacion-sec::before,
+section.confirmacion-sec::before{
+  content:none!important;
+  display:none!important;
+}
+
+/* =====================================================================
+   CUENTA ATRÁS · afinado de diseño (solo esta sección)
+   ===================================================================== */
+section.deep .sec-head .block-title{color:#fff!important}
+section.deep .sec-label{color:rgba(255,255,255,.86)!important}
+
+/* etiqueta y título, con más presencia */
+section.deep .sec-head{margin-bottom:0}
+section.deep .block-title{
+  font-size:clamp(28px,8.4vw,38px);
+  letter-spacing:-.028em;
+}
+
+/* la rama, con aire arriba y abajo */
+section.deep .rama-wrap{margin:18px auto 26px}
+section.deep .rama-fina{max-width:196px;opacity:.85}
+
+/* los cuatro recuadros: tarjetas con profundidad, no cajas planas */
+section.deep .countdown{
+  gap:10px;
+  margin:0;
+}
+section.deep .countdown div{
+  padding:22px 4px 18px;
+  border:1px solid rgba(255,255,255,.26);
+  border-radius:12px;
+  background:linear-gradient(180deg,rgba(255,255,255,.20) 0%,rgba(255,255,255,.08) 100%);
+  box-shadow:0 8px 22px rgba(6,12,44,.22),0 1px 0 rgba(255,255,255,.18) inset;
+}
+section.deep .countdown b{
+  font-size:clamp(26px,8.4vw,35px);
+  font-weight:300;
+  text-shadow:0 2px 10px rgba(6,12,44,.25);
+}
+section.deep .countdown span{
+  margin-top:11px;
+  color:rgba(255,255,255,.78);
+  letter-spacing:.26em;
+}
+
+/* el párrafo de cierre, separado y centrado */
+section.deep .lead{
+  margin:26px auto 0;
+  max-width:320px;
+  line-height:1.72;
+  color:rgba(255,255,255,.86)!important;
+}
+
+/* el panel: un punto más de profundidad en el degradado */
+section.deep::before{
+  background:linear-gradient(168deg,#2038b4 0%,#2440c8 52%,#1d34a8 100%)!important;
+}
+
+/* =====================================================================
+   AFINADO EDITORIAL
+   Ritmo vertical coherente, jerarquía tipográfica y consistencia de
+   tarjetas. Todo con prefijo de clase para no tocar otras secciones.
+   ===================================================================== */
+
+/* --- 1 · etiquetas de sección: más aire entre letras, menos peso --- */
+.sec-label{
+  letter-spacing:.52em;
+  font-weight:400;
+}
+
+/* --- 2 · títulos: más contraste de tamaño contra la etiqueta --- */
+.block-title{
+  letter-spacing:-.03em;
+  line-height:1.08;
+}
+
+/* --- 3 · ritmo vertical: los bloques respiran con la misma medida --- */
+section .section-body > .rama-wrap{margin-top:22px;margin-bottom:26px}
+section .section-body > .lead{margin-top:24px}
+section.ubicacion .place{border-radius:14px}
+section.deep .countdown div{border-radius:14px}
+
+/* --- 5 · los párrafos, con medida de lectura cómoda --- */
+.lead{max-width:352px;margin-left:auto;margin-right:auto;line-height:1.76}
+
+/* --- 6 · el botón principal, con presencia de llamada a la acción --- */
+.btn{letter-spacing:.3em;font-size:max(11px,1em)}
+
+/* --- 7 · foco visible para navegación con teclado --- */
+:focus-visible{outline:2px solid var(--rey);outline-offset:3px;border-radius:4px}
+section.deep :focus-visible,section.deep.on-dark :focus-visible{
+  outline-color:rgba(255,255,255,.9);
+}
+
+/* --- 8 · selección de texto, acorde a la paleta --- */
+::selection{background:var(--rey-100);color:var(--ink)}
+section.deep ::selection{background:rgba(255,255,255,.28);color:#fff}
+
+/* =====================================================================
+   GALERÍA · carrusel deslizante
+   Una foto a la vez, con las vecinas asomando y atenuadas. Se desliza
+   con el dedo, con las flechas o con el teclado, y avanza solo cada
+   pocos segundos hasta que alguien interactúa.
+   ===================================================================== */
+
+
+.carrusel-pista.arrastrando{cursor:grabbing;transition:none}
+
+
+
+
+
+
+
+
+
+/* flechas */
+
+.carrusel-flecha:hover{background:#fff;transform:translateY(-50%) scale(1.07)}
+.carrusel-flecha:active{transform:translateY(-50%) scale(.96)}
+.carrusel-flecha svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.carrusel-ant{left:8px}
+.carrusel-sig{right:8px}
+
+/* puntos */
+.carrusel-puntos{
+  display:flex;justify-content:center;align-items:center;gap:9px;
+  margin:18px auto 0;
+}
+.carrusel-punto{
+  width:8px;height:8px;padding:0;
+  border:0;border-radius:50%;
+  background:var(--rey-100);
+  cursor:pointer;
+  transition:background .35s var(--ease),width .35s var(--ease),height .35s var(--ease);
+}
+.carrusel-punto.activo{
+  background:var(--rey);
+  width:22px;border-radius:5px;
+}
+
+/* el marco de aviso, dentro del carrusel */
+.carrusel .foto[data-estado="falta"]{
+  background:repeating-linear-gradient(45deg,#eef1f8 0 10px,#e3e8f4 10px 20px);
+}
+.carrusel .foto[data-estado="falta"] img{display:none}
+.carrusel .foto[data-estado="falta"]::after{
+  content:"Falta esta foto en la carpeta «fotos»";
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;text-align:center;
+  font-family:var(--sans);font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--rey);
+}
+
+@media (max-width:374px){
+  
+  
+}
+@media (prefers-reduced-motion:reduce){
+  
+  
+}
+
+/* =====================================================================
+   GALERÍA · carrusel tipo cubierta 3D
+   La foto central va recta y a tamaño completo; las vecinas se giran
+   sobre su eje y retroceden, formando la cubierta. Hay perspectiva
+   real, así que se ve profundidad.
+   ===================================================================== */
+
+
+.carrusel-pista.arrastrando{cursor:grabbing;transition:none}
+
+
+/* la central: recta, grande, con luz plena */
+
+/* la anterior y la siguiente, giradas hacia dentro */
+
+
+
+.carrusel .foto img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:contrast(1.03) saturate(1.06) brightness(1.03);
+  user-select:none;-webkit-user-drag:none;
+}
+.carrusel .foto:nth-child(1) img{object-position:50% 26%}
+.carrusel .foto:nth-child(2) img{object-position:50% 30%}
+.carrusel .foto:nth-child(3) img{object-position:50% 32%}
+
+/* degradado suave a los lados, para fundir la cubierta con el fondo */
+
+
+
+
+/* flechas: círculos oscuros, como en la referencia */
+
+.carrusel-flecha:hover{background:rgba(28,34,52,.95);transform:translateY(-50%) scale(1.08)}
+.carrusel-flecha:active{transform:translateY(-50%) scale(.95)}
+.carrusel-flecha svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.carrusel-ant{left:10px}
+.carrusel-sig{right:10px}
+
+/* puntos: centrados, el activo alargado */
+.carrusel-puntos{
+  display:flex;justify-content:center;align-items:center;gap:8px;
+  margin:22px auto 0;
+}
+.carrusel-punto{
+  width:7px;height:7px;padding:0;
+  border:0;border-radius:50%;
+  background:var(--rey-100);
+  cursor:pointer;
+  transition:background .35s var(--ease),width .35s var(--ease),border-radius .35s var(--ease);
+}
+.carrusel-punto.activo{
+  background:var(--rey);
+  width:20px;border-radius:4px;
+}
+
+@media (max-width:374px){
+  
+  
+  
+}
+@media (prefers-reduced-motion:reduce){
+  
+  
+}
+
+/* =====================================================================
+   GALERÍA · cubierta 3D afinada
+   Cinco fotos visibles formando la cubierta: la central recta y a tamaño
+   completo, y cuatro vecinas girando y retrocediendo en profundidad.
+   Cada paso del abanico retrocede en Z y baja un poco, así que la
+   cubierta tiene curvatura real, no un giro plano.
+   ===================================================================== */
+.galeria .section-body{overflow:visible}
+
+.carrusel{
+  position:relative;
+  z-index:30;
+  margin-top:28px;
+  padding:26px 0 14px;
+  perspective:1500px;
+  perspective-origin:50% 44%;
+}
+
+.carrusel-pista{
+  display:flex;
+  align-items:center;
+  gap:0;
+  transform-style:preserve-3d;
+  transition:transform .82s cubic-bezier(.2,.72,.22,1);
+  will-change:transform;
+  touch-action:pan-y;
+  cursor:grab;
+}
+.carrusel-pista.arrastrando{cursor:grabbing;transition:none}
+
+/* --- la foto --- */
+.carrusel .foto{
+  flex:0 0 68%;
+  margin:0;
+  position:relative;
+  overflow:hidden;
+  background:var(--mist);
+  aspect-ratio:3/4;
+  border-radius:18px;
+  transform-style:preserve-3d;
+  transform:translateZ(-150px) rotateY(44deg) scale(.9);
+  opacity:0;
+  filter:saturate(.6) brightness(.94);
+  transition:transform .82s cubic-bezier(.2,.72,.22,1),
+             opacity .6s var(--ease),
+             filter .6s var(--ease),
+             box-shadow .6s var(--ease);
+  backface-visibility:hidden;
+}
+
+/* posiciones del abanico, por distancia a la central */
+.carrusel .foto.a1{
+  transform:translateX(4%) translateZ(-130px) rotateY(42deg) scale(.86);
+  opacity:.72; z-index:3;
+}
+.carrusel .foto.a2{
+  transform:translateX(9%) translateZ(-270px) rotateY(52deg) scale(.7);
+  opacity:.4; z-index:2;
+}
+.carrusel .foto.a-1{
+  transform:translateX(-4%) translateZ(-130px) rotateY(-42deg) scale(.86);
+  opacity:.72; z-index:3;
+}
+.carrusel .foto.a-2{
+  transform:translateX(-9%) translateZ(-270px) rotateY(-52deg) scale(.7);
+  opacity:.4; z-index:2;
+}
+.carrusel .foto.a3,
+.carrusel .foto.a-3{opacity:0;transform:translateZ(-380px) scale(.5)}
+
+/* la central: recta, grande, con luz plena */
+.carrusel .foto.activa{
+  transform:translateZ(0) rotateY(0deg) scale(1);
+  opacity:1;
+  filter:none;
+  z-index:5;
+}
+
+.carrusel .foto img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:contrast(1.03) saturate(1.06) brightness(1.03);
+  user-select:none;-webkit-user-drag:none;
+}
+.carrusel .foto:nth-child(1) img{object-position:50% 26%}
+.carrusel .foto:nth-child(2) img{object-position:50% 30%}
+.carrusel .foto:nth-child(3) img{object-position:50% 32%}
+
+/* --- la sombra que asienta la central --- */
+.carrusel .foto.activa::after{
+  content:"";
+  position:absolute;
+  left:8%;right:8%;bottom:-4px;
+  height:22px;
+  border-radius:50%;
+  background:radial-gradient(ellipse at center,rgba(16,26,74,.28),transparent 72%);
+  filter:blur(6px);
+  pointer-events:none;
+}
+
+/* --- el degradado lateral, atenuado para no cortar el patrón --- */
+.carrusel::before,
+.carrusel::after{
+  content:"";
+  position:absolute;
+  top:0;bottom:0;
+  width:38px;
+  z-index:6;
+  pointer-events:none;
+}
+.carrusel::before{left:0;background:linear-gradient(90deg,rgba(255,255,255,.85),rgba(255,255,255,0))}
+.carrusel::after{right:0;background:linear-gradient(270deg,rgba(255,255,255,.85),rgba(255,255,255,0))}
+
+/* --- flechas: fuera de las fotos, no encima --- */
+.carrusel-flecha{
+  position:absolute;
+  top:46%;
+  transform:translateY(-50%);
+  z-index:8;
+  width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  border:0;border-radius:50%;
+  background:rgba(22,28,46,.86);
+  color:#fff;
+  box-shadow:0 10px 24px rgba(16,26,74,.30);
+  cursor:pointer;
+  transition:background .3s var(--ease),transform .25s var(--ease),box-shadow .3s var(--ease);
+}
+.carrusel-flecha:hover{
+  background:#101a4a;
+  transform:translateY(-50%) scale(1.09);
+  box-shadow:0 14px 30px rgba(16,26,74,.38);
+}
+.carrusel-flecha:active{transform:translateY(-50%) scale(.96)}
+.carrusel-flecha svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.carrusel-ant{left:2px}
+.carrusel-sig{right:2px}
+
+/* --- puntos --- */
+.carrusel-puntos{
+  display:flex;justify-content:center;align-items:center;gap:8px;
+  margin:24px auto 0;
+}
+.carrusel-punto{
+  width:7px;height:7px;padding:0;
+  border:0;border-radius:50%;
+  background:var(--rey-100);
+  cursor:pointer;
+  transition:background .35s var(--ease),width .35s var(--ease),border-radius .35s var(--ease);
+}
+.carrusel-punto.activo{
+  background:var(--rey);
+  width:22px;border-radius:4px;
+}
+
+/* --- aviso de foto ausente, dentro de la cubierta --- */
+.carrusel .foto[data-estado="falta"]{
+  background:repeating-linear-gradient(45deg,#eef1f8 0 10px,#e3e8f4 10px 20px);
+}
+.carrusel .foto[data-estado="falta"] img{display:none}
+.carrusel .foto[data-estado="falta"]::after{
+  content:"Falta esta foto";
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--sans);font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--rey);
+  background:none;
+}
+
+@media (max-width:374px){
+  .carrusel .foto{flex:0 0 74%}
+  .carrusel-flecha{width:36px;height:36px}
+  .carrusel::before,.carrusel::after{width:26px}
+}
+@media (prefers-reduced-motion:reduce){
+  .carrusel-pista,.carrusel .foto{transition:none}
+}
+
+/* =====================================================================
+   ITINERARIO · línea de tiempo del día
+   Una sola línea vertical con nodos. Las horas en versalitas a la
+   izquierda y los actos a la derecha. Los actos de la fiesta van
+   agrupados bajo su propio bloque, con vineta.
+   ===================================================================== */
+.programa{
+  margin-top:34px;
+  text-align:left;
+  position:relative;
+}
+
+/* el hilo vertical */
+.programa::before{
+  content:"";
+  position:absolute;
+  left:47px;
+  top:14px;
+  bottom:14px;
+  width:1px;
+  background:linear-gradient(180deg,transparent,var(--rey-100) 8%,var(--rey-100) 92%,transparent);
+}
+
+.paso{
+  position:relative;
+  display:grid;
+  grid-template-columns:74px 1fr;
+  gap:0 16px;
+  padding:16px 0;
+  align-items:start;
+}
+
+/* el nodo sobre el hilo */
+.paso::before{
+  content:"";
+  position:absolute;
+  left:44px;
+  top:24px;
+  width:7px;height:7px;
+  border-radius:50%;
+  background:var(--rey);
+  box-shadow:0 0 0 4px rgba(255,255,255,.9);
+}
+
+.paso .p-hora{
+  font-family:var(--sans);
+  font-size:9.5px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--rey);
+  padding-top:5px;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.paso .p-txt h4{
+  font-family:var(--display);
+  font-size:19px;
+  font-weight:400;
+  letter-spacing:-.014em;
+  margin:0 0 4px;
+  color:var(--ink);
+}
+.paso .p-txt p{
+  font-family:var(--serif);
+  font-size:15.5px;
+  line-height:1.6;
+  color:var(--ink-2);
+  margin:0;
+}
+
+/* --- los actos de la fiesta --- */
+.actos{
+  position:relative;
+  list-style:none;
+  margin:6px 0 0;
+  padding:0 0 4px 74px;
+  text-align:left;
+}
+.actos li{
+  position:relative;
+  padding:13px 0 13px 20px;
+  border-bottom:1px solid var(--line);
+}
+.actos li:last-child{border-bottom:0}
+
+/* la vineta en rombo, como el resto de la invitación */
+.actos li::before{
+  content:"";
+  position:absolute;
+  left:2px;
+  top:20px;
+  width:6px;height:6px;
+  background:var(--rey-300);
+  transform:rotate(45deg);
+}
+
+.actos b{
+  display:block;
+  font-family:var(--display);
+  font-size:16px;
+  font-weight:400;
+  letter-spacing:-.008em;
+  color:var(--ink);
+}
+.actos span{
+  display:block;
+  margin-top:3px;
+  font-family:var(--serif);
+  font-size:14.5px;
+  line-height:1.5;
+  font-style:italic;
+  color:var(--ink-3);
+}
+
+@media (max-width:374px){
+  .programa::before{left:40px}
+  .paso{grid-template-columns:64px 1fr;gap:0 12px}
+  .paso::before{left:37px}
+  .actos{padding-left:64px}
+  .paso .p-txt h4{font-size:17.5px}
+}
+
+/* =====================================================================
+   APARICIÓN AL BAJAR · variantes y ritmo
+   Todas las piezas entran cuando asoman a la pantalla, con un retardo
+   escalonado para que la lectura vaya guiando la vista.
+   ===================================================================== */
+.reveal{
+  opacity:0;
+  transition:opacity .95s var(--ease-out),transform .95s var(--ease-out);
+  will-change:opacity,transform;
+}
+.reveal[data-anim="up"]{transform:translateY(30px)}
+.reveal[data-anim="down"]{transform:translateY(-24px)}
+.reveal[data-anim="scale"]{transform:scale(.95)}
+.reveal[data-anim="spread"]{transform:scaleX(.55)}
+.reveal[data-anim="left"]{transform:translateX(-34px)}
+.reveal[data-anim="right"]{transform:translateX(34px)}
+.reveal[data-anim="fade"]{transform:none}
+.reveal[data-anim="mask"]{transform:translateY(18px);filter:blur(6px)}
+.reveal.in{
+  opacity:1;
+  transform:none;
+  filter:none;
+}
+
+/* retardos escalonados: hasta nueve pasos */
+.reveal[data-delay="1"]{transition-delay:.06s}
+.reveal[data-delay="2"]{transition-delay:.14s}
+.reveal[data-delay="3"]{transition-delay:.22s}
+.reveal[data-delay="4"]{transition-delay:.3s}
+.reveal[data-delay="5"]{transition-delay:.38s}
+.reveal[data-delay="6"]{transition-delay:.46s}
+.reveal[data-delay="7"]{transition-delay:.54s}
+.reveal[data-delay="8"]{transition-delay:.62s}
+.reveal[data-delay="9"]{transition-delay:.7s}
+
+
+
+/* si el sistema pide menos movimiento, todo visible desde el principio */
+@media (prefers-reduced-motion:reduce){
+  .reveal,.reveal[data-anim]{opacity:1!important;transform:none!important;filter:none!important;transition:none!important}
 }
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
@@ -1591,31 +2284,20 @@ footer{
       <circle class="baya" cx="188" cy="20" r="2.2"/>
     </svg></div>
 
-      <div class="agenda">
-        <div class="item reveal" data-anim="up" data-delay="2">
-          <span class="hour">6:00<br/>pm</span>
-          <div>
-            <h3>Casamiento</h3>
-            <p>El sí más esperado, rodeados de las personas que nos vieron llegar hasta aquí.</p>
-            <span class="where">Tierra y Libertad · Cuautitlán</span>
-          </div>
-        </div>
-
-        <div class="item reveal" data-anim="up" data-delay="3">
-          <span class="hour">8:00<br/>pm</span>
-          <div>
-            <h3>Comida y baile</h3>
-            <p>Mesa larga, brindis y pista abierta hasta que el cuerpo aguante.</p>
-            <span class="where">Salón · hasta la madrugada</span>
-          </div>
-        </div>
-      </div>
-
+      
       <div class="programa">
-  <div class="paso reveal" data-anim="up" data-delay="1"><span class="p-hora">6:00</span><div class="p-txt"><h4>Casamiento</h4><p>Ceremonia en Tierra y Libertad</p></div></div>
-  <div class="paso reveal" data-anim="up" data-delay="2"><span class="p-hora">7:00</span><div class="p-txt"><h4>Cóctel de bienvenida</h4><p>Jardín del salón</p></div></div>
-  <div class="paso reveal" data-anim="up" data-delay="3"><span class="p-hora">8:00</span><div class="p-txt"><h4>Cena</h4><p>Mesa larga para todos</p></div></div>
-  <div class="paso reveal" data-anim="up" data-delay="4"><span class="p-hora">9:00</span><div class="p-txt"><h4>Baile y brindis</h4><p>Hasta que el cuerpo aguante</p></div></div>
+  <div class="paso reveal" data-anim="up" data-delay="1"><span class="p-hora">6:00 pm</span><div class="p-txt"><h4>Ceremonia civil</h4><p>El sí más esperado, rodeados de quienes nos vieron llegar hasta aquí</p></div></div>
+  <div class="paso reveal" data-anim="up" data-delay="2"><span class="p-hora">7:00</span><div class="p-txt"><h4>Inicio de fiesta</h4></div></div>
+  <ul class="actos reveal" data-anim="up" data-delay="3">
+    <li><b>Vals de novios y familiar</b><span>El primer baile, con quien nos trajo hasta aquí</span></li>
+    <li><b>Brindis</b><span>Copas en alto por lo que viene</span></li>
+    <li><b>Cena</b></li>
+    <li><b>Corte de pastel</b><span>El dulce del día</span></li>
+    <li><b>Se abre pista</b><span>Que nadie se quede sentado</span></li>
+    <li><b>Lanzamiento de ramo</b><span>Suerte para quien lo atrape</span></li>
+    <li><b>Lanzamiento de liga</b><span>Y más suerte todavía</span></li>
+    <li><b>Sigue la fiesta</b><span>Hasta que el cuerpo aguante</span></li>
+  </ul>
 </div>
 
       <div class="note reveal" data-anim="up" data-delay="4">
@@ -1848,10 +2530,15 @@ footer{
       <circle class="baya" cx="188" cy="20" r="2.2"/>
     </svg></div>
 
-<div class="gallery">
-        <figure class="reveal" data-anim="scale" data-delay="2"><img id="g1" src="fotos/nosotros.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
-        <figure class="reveal" data-anim="scale" data-delay="3"><img id="g2" src="fotos/la-fiesta.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
-        <figure class="reveal" data-anim="scale" data-delay="4"><img id="g3" src="fotos/siempre.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
+<div class="carrusel" id="carrusel">
+        <div class="carrusel-pista" id="pista">
+          <figure class="foto"><img id="g1" src="fotos/nosotros.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
+          <figure class="foto"><img id="g2" src="fotos/la-fiesta.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
+          <figure class="foto"><img id="g3" src="fotos/siempre.jpg" alt="Recuerdo" loading="eager" decoding="async" onerror="this.dataset.estado='falta';this.closest('figure').dataset.estado='falta'"></figure>
+        </div>
+        <button class="carrusel-flecha carrusel-ant" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg></button>
+        <button class="carrusel-flecha carrusel-sig" type="button" aria-label="Foto siguiente"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        <div class="carrusel-puntos" id="puntos" role="tablist" aria-label="Fotos de la galería"></div>
       </div>
     </div>
   </section>
@@ -2291,11 +2978,61 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   tic(); setInterval(tic, 1000);
 
-  /* animaciones de entrada */
+  /* ------------------------------------------------------------------
+     APARICIÓN AL BAJAR · todo entra cuando asoma a la pantalla.
+     Se marcan solos los bloques que aún no lo estaban, así ninguna
+     sección se queda sin su animación.
+     ------------------------------------------------------------------ */
+  const raizAnim = document.querySelector(".sheet");
+  if (raizAnim) {
+    /* las secciones, uno por uno */
+    document.querySelectorAll("section, header").forEach(function (sec) {
+      if (sec.classList.contains("reveal") || sec.closest(".carrusel")) return;
+      const hijos = Array.from(sec.querySelectorAll(":scope .section-body > *"));
+      hijos.forEach(function (h, k) {
+        if (h.classList.contains("reveal")) return;
+        if (h.tagName === "UL") {
+          h.classList.add("reveal");
+          h.dataset.anim = "up";
+          h.dataset.delay = String(Math.min(9, k + 1));
+          Array.from(h.children).forEach(function (li, j) {
+            li.classList.add("reveal");
+            li.dataset.anim = "left";
+            li.dataset.delay = String(Math.min(9, j + 1));
+          });
+          return;
+        }
+        h.classList.add("reveal");
+        h.dataset.anim = h.dataset.anim || "up";
+        h.dataset.delay = String(Math.min(9, k + 1));
+      });
+    });
+    /* el pie, con su propia entrada */
+    const pie = document.querySelector("footer");
+    if (pie && !pie.classList.contains("reveal")) {
+      pie.classList.add("reveal");
+      pie.dataset.anim = "fade";
+    }
+  }
+
   const io = new IntersectionObserver((es) => {
-    es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.14, rootMargin: "0px 0px -6% 0px" });
+    es.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: "0px 0px -8% 0px" });
+
   document.querySelectorAll(".reveal").forEach((n) => io.observe(n));
+
+  /* red de seguridad: lo que ya esté en pantalla al cargar, visible */
+  window.addEventListener("load", function () {
+    document.querySelectorAll(".reveal:not(.in)").forEach(function (n) {
+      const r = n.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.92) n.classList.add("in");
+    });
+  });
 
   /* barra flotante */
   const flot = document.getElementById("floating");
@@ -2549,6 +3286,147 @@ document.querySelector("[data-close-thanks]").addEventListener("click", () => {
   }
 })();
 
+
+  /* ------------------------------------------------------------------
+     GALERÍA · carrusel deslizante.
+     Una foto a la vez. Se mueve con el dedo, con las flechas, con las
+     teclas y solo, cada pocos segundos.
+     ------------------------------------------------------------------ */
+  (function carruselGaleria() {
+    const raiz = document.getElementById("carrusel");
+    if (!raiz) return;
+    const pista = document.getElementById("pista");
+    const fotos = Array.from(pista.querySelectorAll(".foto"));
+    const puntos = document.getElementById("puntos");
+    const n = fotos.length;
+    if (!n) return;
+
+    let i = 0;
+    let auto = null;
+    const quieto = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* los puntos */
+    fotos.forEach((_, k) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "carrusel-punto";
+      b.setAttribute("aria-label", "Ir a la foto " + (k + 1));
+      b.addEventListener("click", () => ir(k, true));
+      puntos.appendChild(b);
+    });
+    const bolitas = Array.from(puntos.children);
+
+    /* coloca la pista según el índice */
+        function pintar(animar) {
+      if (!animar) pista.classList.add("arrastrando");
+      const f = fotos[i];
+      const desfase = f.offsetLeft - (raiz.clientWidth - f.offsetWidth) / 2;
+      pista.style.transform = "translateX(" + (-desfase) + "px)";
+
+      fotos.forEach((el, k) => {
+        /* distancia circular a la foto activa, en los dos sentidos */
+        let d = k - i;
+        if (d > n / 2) d -= n;
+        if (d < -n / 2) d += n;
+
+        el.classList.toggle("activa", d === 0);
+        el.classList.remove("a1", "a2", "a3", "a-1", "a-2", "a-3");
+        if (d === 1) el.classList.add("a1");
+        else if (d === -1) el.classList.add("a-1");
+        else if (d === 2) el.classList.add("a2");
+        else if (d === -2) el.classList.add("a-2");
+        else if (d === 3) el.classList.add("a3");
+        else if (d === -3) el.classList.add("a-3");
+      });
+
+      bolitas.forEach((el, k) => {
+        el.classList.toggle("activo", k === i);
+        el.setAttribute("aria-current", k === i ? "true" : "false");
+      });
+      if (!animar) {
+        void pista.offsetWidth;
+        requestAnimationFrame(() => pista.classList.remove("arrastrando"));
+      }
+    }
+
+    function ir(k, manual) {
+      i = (k + n) % n;
+      pintar(true);
+      if (manual) reiniciarAuto();
+    }
+
+    /* flechas */
+    raiz.querySelector(".carrusel-ant").addEventListener("click", () => ir(i - 1, true));
+    raiz.querySelector(".carrusel-sig").addEventListener("click", () => ir(i + 1, true));
+
+    /* deslizamiento con el dedo o el ratón */
+    let x0 = null, dx = 0, arrastrando = false;
+    const umbral = 42;
+
+    const inicio = (x) => { x0 = x; dx = 0; arrastrando = true; pista.classList.add("arrastrando"); };
+    const mover = (x) => {
+      if (!arrastrando) return;
+      dx = x - x0;
+      const f = fotos[i];
+      const desfase = f.offsetLeft - (raiz.clientWidth - f.offsetWidth) / 2;
+      const recorrido = Math.max(-90, Math.min(90, dx * 0.38));
+      pista.style.transform = "translateX(" + (-desfase + recorrido) + "px)";
+    };
+    const fin = () => {
+      if (!arrastrando) return;
+      arrastrando = false;
+      pista.classList.remove("arrastrando");
+      pista.style.transform = "";
+      if (Math.abs(dx) > umbral) ir(dx < 0 ? i + 1 : i - 1, true);
+      else pintar(true);
+      x0 = null; dx = 0;
+    };
+
+    pista.addEventListener("touchstart", (e) => inicio(e.touches[0].clientX), { passive: true });
+    pista.addEventListener("touchmove", (e) => mover(e.touches[0].clientX), { passive: true });
+    pista.addEventListener("touchend", fin);
+    pista.addEventListener("touchcancel", fin);
+
+    pista.addEventListener("mousedown", (e) => { e.preventDefault(); inicio(e.clientX); });
+    window.addEventListener("mousemove", (e) => mover(e.clientX));
+    window.addEventListener("mouseup", fin);
+
+    /* teclado */
+    raiz.setAttribute("tabindex", "0");
+    raiz.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") { e.preventDefault(); ir(i - 1, true); }
+      if (e.key === "ArrowRight") { e.preventDefault(); ir(i + 1, true); }
+    });
+
+    /* avance automático */
+    function arrancarAuto() {
+      if (quieto || n < 2) return;
+      pararAuto();
+      auto = setInterval(() => ir(i + 1, false), 5200);
+    }
+    function pararAuto() { if (auto) { clearInterval(auto); auto = null; } }
+    function reiniciarAuto() { pararAuto(); arrancarAuto(); }
+
+    raiz.addEventListener("pointerenter", pararAuto);
+    raiz.addEventListener("pointerleave", arrancarAuto);
+    raiz.addEventListener("focusin", pararAuto);
+    document.addEventListener("visibilitychange", () => {
+      document.hidden ? pararAuto() : arrancarAuto();
+    });
+
+    /* recolocar al cambiar el tamaño o al rotar */
+    let t = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(t);
+      t = setTimeout(() => pintar(false), 120);
+    });
+
+    /* primera colocación, tras cargar las fuentes y las imágenes */
+    pintar(false);
+    window.addEventListener("load", () => pintar(false));
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => pintar(false));
+    arrancarAuto();
+  })();
 </script>
 
 </body>
