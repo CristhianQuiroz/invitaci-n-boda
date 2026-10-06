@@ -4409,83 +4409,109 @@ html.js-listo .escena .actos > li:nth-child(8){transition-delay:1.04s}
 .lista-acompanantes input:focus{border-bottom-color:var(--rey)}
 .lista-acompanantes input::placeholder{color:var(--ink-4);font-style:italic}
 
+
 /* =====================================================================
-   BOTÓN "REGISTRAR ASISTENCIA" · con cuerpo y definición
-   Antes era un bloque blanco plano que se fundía con el azul del panel.
-   Ahora lleva sombra propia, halo suave, filo de luz interior y una
-   respuesta clara al tocar.
+   BOTÓN "REGISTRAR ASISTENCIA" · normal, sin efectos
+   Fondo blanco y texto azul. Sin sombra, sin halo, sin animación.
    ===================================================================== */
-.confirmacion-sec .btn-white{
-  position:relative;
-  background:#fff;
+section.confirmacion-sec [data-rsvp]{
+  background:#ffffff;
   color:var(--rey);
-  border:1px solid rgba(255,255,255,.9);
-  border-radius:999px;
-  font-weight:500;
-  letter-spacing:.2em;
-  padding:20px 30px;
-  box-shadow:
-    0 14px 34px rgba(6,12,44,.42),
-    0 3px 0 rgba(255,255,255,.55) inset,
-    0 0 0 1px rgba(255,255,255,.28);
-  transition:transform .28s cubic-bezier(.22,.68,.16,1),
-             box-shadow .28s cubic-bezier(.22,.68,.16,1),
-             background .28s var(--ease),
-             color .28s var(--ease);
+  border:1px solid #ffffff;
+  box-shadow:none;
+  transform:none;
   animation:none;
+  opacity:1;
+  border-radius:0;
 }
-
-/* el halo, más marcado, sin lavar el texto */
-.confirmacion-sec .btn-white::after{
-  content:"";
-  position:absolute;
-  inset:-10px;
-  border-radius:999px;
-  background:radial-gradient(ellipse at center,rgba(255,255,255,.30),rgba(255,255,255,0) 70%);
-  pointer-events:none;
-  z-index:-1;
-  opacity:.9;
-  transition:opacity .3s var(--ease);
+section.confirmacion-sec [data-rsvp]::before,
+section.confirmacion-sec [data-rsvp]::after{
+  content:none;
+  display:none;
 }
-
-.confirmacion-sec .btn-white:hover{
-  background:#fff;
+section.confirmacion-sec [data-rsvp] svg{
+  stroke:var(--rey);
+  fill:none;
+}
+section.confirmacion-sec [data-rsvp]:hover,
+section.confirmacion-sec [data-rsvp]:active,
+section.confirmacion-sec [data-rsvp]:focus{
+  background:#ffffff;
   color:var(--rey);
-  transform:translateY(-2px);
-  box-shadow:
-    0 20px 44px rgba(6,12,44,.5),
-    0 3px 0 rgba(255,255,255,.6) inset,
-    0 0 0 1px rgba(255,255,255,.4);
-}
-.confirmacion-sec .btn-white:hover::after{opacity:1}
-
-.confirmacion-sec .btn-white:active{
-  transform:translateY(0);
-  box-shadow:
-    0 8px 20px rgba(6,12,44,.4),
-    0 2px 0 rgba(255,255,255,.45) inset;
+  box-shadow:none;
+  transform:none;
 }
 
-/* el icono de la palomita, con su propio peso */
-.confirmacion-sec .btn-white svg{
-  width:16px;height:16px;
-  fill:none;stroke:currentColor;stroke-width:2.2;
-  stroke-linecap:round;stroke-linejoin:round;
-  flex:none;
-}
+/* =====================================================================
+   PORTADA · texto con más presencia
+   Lo que estaba pálido se oscurece y se agranda un punto. Los filetes
+   ganan cuerpo para que enmarquen en lugar de desaparecer.
+   ===================================================================== */
 
-/* el mismo trato para el botón de la barra flotante del móvil */
-.floating .btn-white,
-.floating .btn-royal{
-  border-radius:999px;
-  box-shadow:0 12px 28px rgba(6,12,44,.4);
+/* --- los nombres, con más peso --- */
+.opening-inner .couple{
+  color:var(--ink);
   font-weight:500;
+  font-size:clamp(24px,6.7vw,31px);
+  letter-spacing:-.01em;
 }
 
-@media (prefers-reduced-motion:reduce){
-  .confirmacion-sec .btn-white{transition:none;animation:none}
-  .confirmacion-sec .btn-white:hover{transform:none}
+/* --- la fecha, en azul noche pleno y algo mayor --- */
+.opening-inner .date-band span,
+.date-band span{
+  color:var(--ink);
+  font-weight:500;
+  font-size:clamp(16.5px,5.1vw,19.5px);
+  letter-spacing:.16em;
 }
+
+/* --- los filetes de la fecha, con cuerpo --- */
+.opening-inner .date-band{
+  border-top:1px solid var(--ink);
+  border-bottom:1px solid var(--ink);
+  max-width:300px;
+  padding:14px 0;
+}
+.opening-inner .date-band::before,
+.opening-inner .date-band::after{
+  background:var(--ink);
+  opacity:.55;
+  height:1px;
+}
+
+/* --- el LUGAR: era lo más pálido de todo --- */
+.opening-inner .std-note,
+.std-note{
+  color:var(--ink-2);
+  font-weight:500;
+  font-size:clamp(10.5px,3.1vw,12.5px);
+  letter-spacing:.28em;
+}
+
+/* --- la etiqueta "Nuestra boda" --- */
+.std-label,
+.opening-inner .std-label{
+  color:var(--rey);
+  font-weight:500;
+  font-size:clamp(9.5px,3vw,11.5px);
+}
+
+/* --- "Reserva la fecha" --- */
+.opening-inner .std{
+  color:var(--ink);
+  font-weight:400;
+}
+
+/* --- el filete bajo el título, con más presencia --- */
+.opening-inner .std-line{
+  background:var(--rey);
+  opacity:.55;
+  height:1px;
+}
+
+/* --- el pie de la portada --- */
+footer .sign{color:#fff;font-weight:500}
+footer .meta{color:rgba(255,255,255,.92)}
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -5543,10 +5569,6 @@ html.js-listo .escena .actos > li:nth-child(8){transition-delay:1.04s}
   </footer>
 </main>
 
-<!-- BARRA FLOTANTE -->
-<div class="floating" id="floating">
-  <button class="btn btn-royal" type="button" data-rsvp>Registrar asistencia</button>
-</div>
 
 <!-- MODAL -->
 <div class="scrim" id="scrim" role="dialog" aria-modal="true" aria-labelledby="rsvpTitulo">
@@ -5794,16 +5816,7 @@ const io = new IntersectionObserver((es) => {
     });
 });
 
-  /* barra flotante */
-  const flot = document.getElementById("floating");
-  const onScroll = () => {
-    const y = window.scrollY;
-    const final = y + window.innerHeight > document.body.scrollHeight - 480;
-    flot.classList.toggle("show", y > 620 && !final);
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll);
-  onScroll();
+  /* barra flotante: ya no existe en el HTML, no hace falta su lógica */
 });
 
 /* =====================================================================
